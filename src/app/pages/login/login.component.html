@@ -1,6 +1,6 @@
 <main class="main-container">
     <div class="form-container">
-        <form (ngSubmit)="testandoSubmit()" [formGroup]="loginForm" autocomplete="off">
+        <form (ngSubmit)="login()" [formGroup]="loginForm" autocomplete="off">
             <div class="title">
                 <div>Trabalho</div>
                 <div class="colorful-text-container">
@@ -13,7 +13,7 @@
                     <label>
                         Informe sua palavra-passe
                     </label>
-                    <input type="text" formControlName="palavraPasse">
+                    <input type="text" class="custom-input" formControlName="palavraPasse">
                 </div>
         
                 <button class="button" type="submit" [disabled]="loginForm.invalid">

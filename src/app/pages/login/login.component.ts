@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +14,28 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginForm: any;
+  showOptions: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      palavraPasse: ['', Validators.required],
+      palavraPasse: [null, Validators.required],
     });
   }
 
-  testandoSubmit() {
-    console.log('submit');
+  login() {
+    let palavraPasse = this.loginForm.get('palavraPasse').value;
+
+    if (palavraPasse === null) {
+      return;
+    }
+
+    this.authService.login(palavraPasse).then((result) => {
+      console.log(result);
+    });
   }
 }
