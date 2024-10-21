@@ -27,15 +27,19 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // login() {
+  //   let palavraPasse = this.loginForm.get('palavraPasse').value;
+
+  //   if (palavraPasse === null) {
+  //     return;
+  //   }
+
+  //   this.authService.login(palavraPasse).then((result) => {
+  //     console.log(result);
+  //   });
+  // }
+
   login() {
-    let palavraPasse = this.loginForm.get('palavraPasse').value;
-
-    if (palavraPasse === null) {
-      return;
-    }
-
-    this.authService.login(palavraPasse).then((result) => {
-      console.log(result);
-    });
+    this.authService.setLog(!this.authService.isUserLogged());
   }
 }

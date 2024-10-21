@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class UsuariosService {
   private API_URL = 'http://localhost:3000/';  // URL to web api
+  private loggedUserData: any;
 
   constructor(
     private httpClient: HttpClient
@@ -28,5 +29,13 @@ export class UsuariosService {
     let url = this.API_URL + "usuarios/" + idUsuario;
 
     return firstValueFrom(this.httpClient.delete(url));
+  }
+
+  setLoggedUserData(userData: any): void {
+    this.loggedUserData = userData;
+  }
+
+  getLoggedUserData(): any {
+    return this.loggedUserData;
   }
 }

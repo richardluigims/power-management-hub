@@ -7,6 +7,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class AuthenticationService {
   private API_URL = 'http://localhost:3000/';
+  private isUserLoggedIn: boolean = false;
 
   constructor(
     private httpClient: HttpClient
@@ -25,5 +26,21 @@ export class AuthenticationService {
 
       return result;
     });
+  }
+
+  logUserIn(): void {
+    this.isUserLoggedIn = true;
+  }
+
+  logUserOut(): void {
+    this.isUserLoggedIn = false;
+  }
+
+  isUserLogged(): boolean {
+    return this.isUserLoggedIn;
+  }
+
+  setLog(value: boolean): void {
+    this.isUserLoggedIn = value;
   }
 }
