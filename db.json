@@ -29,10 +29,9 @@
     "dispositivos": [
         {
             "id": 1,
-            "nome": "Lâmpada 1",
-            "local": "Sala de estar",
             "tipo": 1,
-            "palavraPasse": "23012002"
+            "descricao": "Canto esquerdo",
+            "ambiente": "Sala de estar"
         }
     ]
 }

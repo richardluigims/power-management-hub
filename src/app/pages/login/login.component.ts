@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: any;
   showOptions: boolean = false;
+  inputType: string = "password";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,19 +28,19 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // login() {
-  //   let palavraPasse = this.loginForm.get('palavraPasse').value;
-
-  //   if (palavraPasse === null) {
-  //     return;
-  //   }
-
-  //   this.authService.login(palavraPasse).then((result) => {
-  //     console.log(result);
-  //   });
-  // }
+  ToggleInputVisibility(inputId: string): void {
+    this.inputType == "text" ? this.inputType = "password" : this.inputType = "text";
+  }
 
   login() {
-    this.authService.setLog(!this.authService.isUserLogged());
+    let palavraPasse = this.loginForm.get('palavraPasse').value;
+
+    if (palavraPasse === null) {
+      return;
+    }
+
+    this.authService.login(palavraPasse).then((result) => {
+      console.log(result);
+    });
   }
 }

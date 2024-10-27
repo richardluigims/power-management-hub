@@ -8,18 +8,26 @@
                 </div>
             </div>
 
-            <div class="input-and-button">
+            <div class="form-input-container">
+                <label>
+                    Qual é a sua palavra-passe?
+                </label>
                 <div class="form-input">
-                    <label>
-                        Qual é a sua palavra-passe?
-                    </label>
-                    <input type="text" class="custom-input" formControlName="palavraPasse">
+                    <input [type]="inputType" formControlName="palavraPasse" id="input_palavra-passe">
+                    <button class="btn-eye-icon" type="button" (click)="ToggleInputVisibility('input_palavra-passe')">
+                        @if (inputType == "password") {
+                            <img src="assets/images/eye-hidden-icon.svg" />
+                        }
+                        @else if (inputType == "text") {
+                            <img src="assets/images/eye-visible-icon.svg" />
+                        }
+                    </button>
                 </div>
-        
-                <button class="button" type="submit" [disabled]="loginForm.invalid">
-                    Acessar
-                </button>
             </div>
+
+            <button class="primary-button" type="submit" [disabled]="loginForm.invalid">
+                Acessar
+            </button>
         </form>
     </section>
 </div>
