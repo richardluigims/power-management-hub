@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { UsuariosService } from '../usuarios/usuarios.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private API_URL = 'http://localhost:3000/';
-  private isUserLoggedIn: boolean = false;
+  private isUserLogged: boolean = false;
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private usuariosService: UsuariosService
   ) { }
 
   login(palavraPasse: any): Promise<any> {
@@ -28,19 +30,39 @@ export class AuthenticationService {
     });
   }
 
-  logUserIn(): void {
-    this.isUserLoggedIn = true;
+  markUserAsLoggedIn() {
+    this.isUserLogged = true;
   }
 
-  logUserOut(): void {
-    this.isUserLoggedIn = false;
+  markUserAsLoggedOut() {
+    this.isUserLogged = false;
+
+    let loggedUserData = {
+      loggedUser: undefined,
+      aparelhos: undefined,
+      usuarios: undefined
+    }
+
+    this.usuariosService.setLoggedUserData(loggedUserData);
   }
 
-  isUserLogged(): boolean {
-    return this.isUserLoggedIn;
+  isUserLoggedIn(): boolean {
+    return this.isUserLogged;
   }
 
-  setLog(value: boolean): void {
-    this.isUserLoggedIn = value;
-  }
+  // logUserIn(): void {
+  //   this.isUserLogged = true;
+  // }
+
+  // logUserOut(): void {
+  //   this.isUserLogged = false;
+  // }
+
+  // isUserLogged(): boolean {
+  //   return this.isUserLogged;
+  // }
+
+  // setLog(value: boolean): void {
+  //   this.isUserLogged = value;
+  // }
 }

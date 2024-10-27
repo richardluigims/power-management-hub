@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { Router } from '@angular/router';
+import { UsuariosService } from '../../services/usuarios/usuarios.service';
+import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +22,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router,
+    private usuariosService: UsuariosService,
+    private aparelhosService: AparelhosService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +45,23 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authService.login(palavraPasse).then((result) => {
-      console.log(result);
+    this.authService.login(palavraPasse).then((usuario) => {
+      if (usuario != null) {
+
+        let loggedUserData = {
+          loggedUser: usuario
+        }
+
+        this.usuariosService.setLoggedUserData(loggedUserData);
+
+        this.router.navigateByUrl("/aparelhos");
+      }
+      else {
+        alert("Palavra-passe inválida.");
+      }
+    })
+    .catch((error) => {
+      alert("Serviço indisponível");
     });
   }
 }

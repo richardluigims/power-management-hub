@@ -26,12 +26,12 @@
             "palavraPasse": "14032002"
         }
     ],
-    "dispositivos": [
+    "aparelhos": [
         {
             "id": 1,
             "tipo": 1,
             "descricao": "Canto esquerdo",
-            "ambiente": "Sala de estar"
+            "comodo": "Sala de estar"
         }
     ]
 }
