@@ -1,1 +1,5 @@
-<p>aparelhos works!</p>
+<section class="container">
+    @for(aparelho of aparelhos; track aparelho.id) {
+        <app-card-aparelho [aparelho]="aparelho"></app-card-aparelho>
+    }
+</section>

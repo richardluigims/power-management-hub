@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { CardAparelhoComponent } from './components/card-aparelho/card-aparelho.component';
 
 @Component({
   selector: 'app-aparelhos',
   standalone: true,
-  imports: [],
+  imports: [
+    CardAparelhoComponent
+  ],
   templateUrl: './aparelhos.component.html',
   styleUrl: './aparelhos.component.scss'
 })
 export class AparelhosComponent implements OnInit {
 
-  aparelhos = null;
+  aparelhos: any = null;
 
   constructor(
     private aparelhosService: AparelhosService,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +29,8 @@ export class AparelhosComponent implements OnInit {
     if (this.aparelhos == null) {
       this.getAparelhos();
     }
+
+    this.authService.markUserAsLoggedIn();
   }
 
   getAparelhos() {
@@ -38,4 +45,7 @@ export class AparelhosComponent implements OnInit {
     })
   }
 
+  togglePowerMode() {
+
+  }
 }

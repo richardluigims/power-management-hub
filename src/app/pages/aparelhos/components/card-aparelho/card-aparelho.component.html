@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        <div>
+            ícone
+        </div>
+
+        <button class="btn_on-off" (click)="togglePowerOnOff()">
+            on/off
+        </button>
+    </div>
+
+    <div class="card-body">
+        <div class="description">
+            {{ aparelho.descricao}}
+        </div>
+
+        <div class="room-and-time">
+            <div>
+                {{ aparelho.comodo}}
+            </div>
+
+            <div>
+                @if(tempoLigado > 0) {
+                    {{ tempoLigado }}
+                }
+            </div>
+        </div>
+    </div>
+</div>

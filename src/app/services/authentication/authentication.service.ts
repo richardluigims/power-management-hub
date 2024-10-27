@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { UsuariosService } from '../usuarios/usuarios.service';
 
 @Injectable({
@@ -9,6 +9,8 @@ import { UsuariosService } from '../usuarios/usuarios.service';
 export class AuthenticationService {
   private API_URL = 'http://localhost:3000/';
   private isUserLogged: boolean = false;
+
+  private loginSubject = new BehaviorSubject<boolean>(false);
 
   constructor(
     private httpClient: HttpClient,
@@ -32,6 +34,7 @@ export class AuthenticationService {
 
   markUserAsLoggedIn() {
     this.isUserLogged = true;
+    this.loginSubject.next(this.isUserLogged);
   }
 
   markUserAsLoggedOut() {
@@ -44,25 +47,15 @@ export class AuthenticationService {
     }
 
     this.usuariosService.setLoggedUserData(loggedUserData);
+
+    this.loginSubject.next(this.isUserLogged);
+  }
+
+  watchingUserLogState(): Observable<boolean> {
+    return this.loginSubject.asObservable();
   }
 
   isUserLoggedIn(): boolean {
     return this.isUserLogged;
   }
-
-  // logUserIn(): void {
-  //   this.isUserLogged = true;
-  // }
-
-  // logUserOut(): void {
-  //   this.isUserLogged = false;
-  // }
-
-  // isUserLogged(): boolean {
-  //   return this.isUserLogged;
-  // }
-
-  // setLog(value: boolean): void {
-  //   this.isUserLogged = value;
-  // }
 }

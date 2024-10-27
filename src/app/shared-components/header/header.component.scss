@@ -27,7 +27,7 @@ li::after {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background-color: var(--primary-midnight);
+    background-color: var(--midnight);
 }
 
 li:last-of-type::after {
@@ -37,7 +37,7 @@ li:last-of-type::after {
 }
 
 li a {
-    color: var(--primary-midnight);
+    color: var(--midnight);
     background-color: white;
     text-decoration: none;
     border-radius: 80px;
@@ -52,7 +52,7 @@ li a {
     height: 48px;
 
     margin-right: 16px;
-    border: solid 1px var(--primary-midnight);
+    border: solid 1px var(--midnight);
 }
 
 .active li a {

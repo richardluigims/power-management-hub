@@ -10,7 +10,7 @@
     background-color: white;
     border-radius: 48px;
     width: 424px;
-    border: solid 1px var(--primary-midnight);
+    border: solid 1px var(--midnight);
 
     padding: 40px;
     
@@ -77,14 +77,14 @@
     label {
         font-size: 14px;
         font-weight: 600;
-        color: var(--primary-midnight);
+        color: var(--midnight);
         padding-left: 1px;
     }
 
     .form-input {
         display: flex;
         height: 50px;
-        border: solid 1px var(--primary-midnight);
+        border: solid 1px var(--midnight);
         background-color: rgba(var(--background-medium-rgb), 0.3);
         border-radius: 12px;
         width: 100%;

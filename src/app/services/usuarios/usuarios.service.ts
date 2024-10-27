@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuariosService {
-  private API_URL = 'http://localhost:3000/';  // URL to web api
+  private API_URL = 'http://localhost:3000/usuarios';  // URL to web api
   private userData: any = {
     loggedUser: undefined,
     usuarios: undefined,
@@ -18,15 +18,11 @@ export class UsuariosService {
   ) { }
 
   getUsuarios(): Promise<any> {
-    let url = this.API_URL + "usuarios";
-
-    return firstValueFrom(this.httpClient.get(url));
+    return firstValueFrom(this.httpClient.get(this.API_URL));
   }
 
   createUsuario(novoUsuario: any): Promise<any> {
-    let url = this.API_URL + "usuarios";
-
-    return firstValueFrom(this.httpClient.post(url, novoUsuario));
+    return firstValueFrom(this.httpClient.post(this.API_URL, novoUsuario));
   }
 
   deleteUsuario(idUsuario: number): Promise<any> {
