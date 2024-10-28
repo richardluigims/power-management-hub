@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UsuariosService } from './services/usuarios/usuarios.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HeaderComponent } from "./shared-components/header/header.component";
 
@@ -16,7 +15,6 @@ export class AppComponent implements OnInit{
   isUserLoggedIn: boolean = false;
 
   constructor(
-    private usuariosService: UsuariosService,
     private authService: AuthenticationService,
     private changeDetectorRef: ChangeDetectorRef
   ) { }

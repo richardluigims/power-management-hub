@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
-import { UsuariosService } from '../usuarios/usuarios.service';
-import { UserDataService } from '../userData/user-data.service';
+import { UserDataService } from '../usuarios/user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,6 @@ export class AuthenticationService {
 
   constructor(
     private httpClient: HttpClient,
-    private usuariosService: UsuariosService,
     private userDataService: UserDataService
   ) { }
 
@@ -42,14 +40,7 @@ export class AuthenticationService {
   markUserAsLoggedOut() {
     this.isUserLogged = false;
 
-    let loggedUserData = {
-      loggedUser: null,
-      aparelhos: null,
-      usuarios: null
-    }
-
-    this.userDataService.setLoggedUserData(loggedUserData);
-
+    this.userDataService.removeUserData();
     this.loginSubject.next(this.isUserLogged);
   }
 

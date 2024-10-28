@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
-import { UserDataService } from '../../services/userData/user-data.service';
+import { UserDataService } from '../../services/usuarios/user-data.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,20 +12,22 @@ import { UserDataService } from '../../services/userData/user-data.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
 
   loggedUserData: any;
   loggedUser: any;
   userOptionsButtonContainer: any;
+  routerSubscription: Subscription | null = null;
   
   constructor(
     private router: Router,
     private usuariosService: UsuariosService,
-    private userDataSevice: UserDataService
+    private userDataService: UserDataService,
+    private authService: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
-    this.loggedUserData = this.userDataSevice.getLoggedUserData();
+    this.loggedUserData = this.userDataService.getLoggedUserData();
     
     if (this.loggedUserData.loggedUser == null) {
       this.getUser();
@@ -31,11 +35,21 @@ export class HeaderComponent implements AfterViewInit {
     else {
       this.loggedUser = this.loggedUserData.loggedUser;
     }
+
+    this.routerSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (event.url == "/login") {          
+          this.authService.markUserAsLoggedOut();
+        }
+      }
+    })
   }
 
   ngAfterViewInit(): void {
       this.userOptionsButtonContainer = document.querySelector("#user-options-button-container");
   }
+  
+  
 
   getUser() {
     let userId = localStorage.getItem('userId') as string;

@@ -24,7 +24,7 @@
             </div>
         }
 
-        <button class="btn_on-off" (click)="togglePowerOnOff()"></button>
+        <button class="btn_on-off" (click)="isPowerOn ? powerOff() : powerOn()"></button>
     </div>
 
     <div class="card-body">

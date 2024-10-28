@@ -4,7 +4,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
-import { UserDataService } from '../../services/userData/user-data.service';
+import { UserDataService } from '../../services/usuarios/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -25,8 +25,6 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private router: Router,
-    private usuariosService: UsuariosService,
-    private aparelhosService: AparelhosService,
     private userDataService: UserDataService
   ) {}
 

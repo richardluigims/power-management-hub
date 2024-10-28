@@ -3,7 +3,7 @@ import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { CardAparelhoComponent } from './components/card-aparelho/card-aparelho.component';
-import { UserDataService } from '../../services/userData/user-data.service';
+import { UserDataService } from '../../services/usuarios/user-data.service';
 
 @Component({
   selector: 'app-aparelhos',
@@ -21,7 +21,6 @@ export class AparelhosComponent implements OnInit {
   constructor(
     private aparelhosService: AparelhosService,
     private userDataService: UserDataService,
-    private usuariosService: UsuariosService,
     private authService: AuthenticationService
   ) {}
 

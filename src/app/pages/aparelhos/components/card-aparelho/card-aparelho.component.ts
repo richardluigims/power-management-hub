@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AparelhoEnum } from '../../../../enums/aparelho-enum';
+import { UserDataService } from '../../../../services/usuarios/user-data.service';
+import { AparelhosControlService } from '../../../../services/aparelhos/aparelhos-control.service';
 
 @Component({
   selector: 'app-card-aparelho',
@@ -18,42 +20,64 @@ export class CardAparelhoComponent implements AfterViewInit {
   aparelhoElement: HTMLElement | null = null;
   aparelhoEnum = AparelhoEnum;
 
-  constructor() { }
+  constructor(
+    private userDataService: UserDataService,
+    private aparelhosControlService: AparelhosControlService
+  ) { }
 
   ngOnInit(): void {
-    
+    let aparelho = this.aparelhosControlService.getAparelho(this.aparelho.id)
+
+    if (aparelho == null || aparelho == undefined) {
+      this.aparelhosControlService.addAparelho(this.aparelho.id);
+    }
+    else {
+      this.isPowerOn = aparelho.isPowerOn;
+      this.minutos = aparelho.minutos;
+      this.segundos = aparelho.segundos;
+      this.formatTime();
+    }
   }
 
   ngAfterViewInit(): void {
-      this.aparelhoElement = document.querySelector("#aparelho_" + this.aparelho.id);
+    this.aparelhoElement = document.querySelector("#aparelho_" + this.aparelho.id);
+
+    if (this.isPowerOn) {
+      this.powerOn();
+    }
   }
 
-  togglePowerOnOff() {
-    if (!this.isPowerOn) {
+  powerOn() {
+    this.formatTime();
+    this.aparelhosControlService.ligarAparelho(this.aparelho.id);
+
+    this.countingSeconds = setInterval(() => {
+      this.segundos++;
+
+      if (this.segundos > 60) {
+        this.segundos = 0;
+        this.minutos++;
+      }
+
       this.formatTime();
 
-      this.countingSeconds = setInterval(() => {
-        this.segundos++;
+      this.aparelhosControlService.setTempoLigado(this.aparelho.id, this.minutos, this.segundos);
+    }, 1000);
 
-        if (this.segundos > 60) {
-          this.segundos = 0;
-          this.minutos++;
-        }
+    this.isPowerOn = true;
 
-        this.formatTime();
-      }, 1000);
+    this.aparelhoElement?.classList.toggle('on');
+  }
 
-      this.isPowerOn = true;      
-    }
-    else {
-      clearInterval(this.countingSeconds);
+  powerOff() {
+    clearInterval(this.countingSeconds);
 
-      this.segundos = 0;
-      this.minutos = 0;
-      this.tempoLigado = null;
+    this.segundos = 0;
+    this.minutos = 0;
+    this.tempoLigado = null;
 
-      this.isPowerOn = false;
-    }
+    this.isPowerOn = false;
+    this.aparelhosControlService.desligarAparelho(this.aparelho.id);
 
     this.aparelhoElement?.classList.toggle('on');
   }
