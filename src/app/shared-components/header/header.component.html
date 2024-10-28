@@ -25,7 +25,7 @@
         </button>
 
         <div class="user-options-button-container" id="user-options-button-container">
-            <button class="btn_user-options" (click)="showUserOptions()">
+            <button class="btn_user-options">
                 <div class="user-icon">
                     <svg width="35" height="34" viewBox="0 0 35 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.5007 16.9999C20.1516 16.9999 22.3007 14.8509 22.3007 12.1999C22.3007 9.54894 20.1516 7.3999 17.5007 7.3999C14.8497 7.3999 12.7007 9.54894 12.7007 12.1999C12.7007 14.8509 14.8497 16.9999 17.5007 16.9999Z" stroke="#002B1E" stroke-width="1.5"/>
@@ -46,7 +46,14 @@
             </button>
 
             <div class="user-options-container">
-
+                <button class="btn_logout" (click)="logout()">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11 1.5C16.2467 1.5 20.5 5.75327 20.5 11C20.5 16.2467 16.2467 20.5 11 20.5" stroke="#FF1A1A" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M13.375 11L1.5 11M1.5 11L5.0625 14.5625M1.5 11L5.0625 7.4375" stroke="#FF1A1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+    
+                    Sair
+                </button>
             </div>
         </div>
     </div>

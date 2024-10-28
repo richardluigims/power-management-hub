@@ -85,8 +85,8 @@ nav ul {
     .btn_novo-aparelho {
         height: 48px;
         background-color: var(--decorative-2);
-        padding-right: 16px;
-        padding-left: 16px;
+        padding-right: 18px;
+        padding-left: 18px;
         border: solid 2px var(--midnight);
         font-size: 16px;
         border-radius: 50px;
@@ -128,9 +128,9 @@ nav ul {
                 max-width: 0px;
                 margin-left: 0px;
                 margin-right: 0px;
-                transition: max-width 0.3s,
-                            margin-left 0.4s,
-                            margin-right 0.4s;
+                transition: margin-left 0.4s linear,
+                            margin-right 0.4s linear,
+                            max-width 0.4s linear;
             }
     
             .chevron-icon {
@@ -142,9 +142,38 @@ nav ul {
                 }
             }
         }
+
+        .user-options-container {
+            position: absolute;
+            width: fit-content;
+            top: 50%;
+            right: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: top 0.3s ease-out, opacity 0.2s;
+
+            .btn_logout {
+                color: var(--midnight);
+                font-size: 16px;
+                font-weight: 600;
+                padding-left: 24px;
+                padding-right: 24px;
+                border-radius: 40px;
+                border: solid 1px var(--midnight);
+                display: flex;
+                align-items: center;
+                height: 48px;
+                background-color: white;
+                gap: 12px;
+
+                svg {
+                    width: 18px;
+                }
+            }
+        }
     }
     
-    .user-options-button-container.show-user-options {
+    .user-options-button-container:hover {
         .btn_user-options {
             .username {
                 max-width: 150px;
@@ -156,6 +185,16 @@ nav ul {
                 svg {
                     transform: rotate(180deg);
                 }
+            }
+        }
+
+        .user-options-container {
+            top: 80%;
+            opacity: 1;
+            pointer-events: auto;
+            
+            .btn_logout {
+                cursor: pointer;
             }
         }
     }

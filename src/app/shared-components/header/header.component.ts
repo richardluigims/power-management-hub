@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { UserDataService } from '../../services/usuarios/user-data.service';
@@ -12,11 +12,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit {
 
   loggedUserData: any;
   loggedUser: any;
-  userOptionsButtonContainer: any;
   routerSubscription: Subscription | null = null;
   
   constructor(
@@ -45,12 +44,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-      this.userOptionsButtonContainer = document.querySelector("#user-options-button-container");
-  }
-  
   criarNovoAparelho() {
-    
+
   }
 
   getUser() {
@@ -62,8 +57,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     })
   }
 
-  showUserOptions() {
-    this.userOptionsButtonContainer.classList.toggle('show-user-options');
+  logout() {
+    this.authService.markUserAsLoggedOut();
+    this.router.navigateByUrl("/login");
   }
 
   navigateTo(url: string, event: any): void {
