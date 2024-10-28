@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserDataService } from '../../services/usuarios/user-data.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
@@ -10,22 +10,38 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
 })
-export class UsuariosComponent implements OnInit {
+export class UsuariosComponent implements OnInit, OnDestroy {
 
+  loggedUserData: any;
   usuarios: any;
+  loggedUser: any;
+  userDataSubscription: any;
 
   constructor(
     private userDataService: UserDataService,
     private usuariosService: UsuariosService,
     private authService: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-      this.usuarios = this.userDataService.getLoggedUserData().usuarios;
+    let userId = localStorage.getItem('userId');
 
-      if (this.usuarios == null) {
-        this.getUsuarios();
-      }
+    if (userId) {
+      this.authService.markUserAsLoggedIn();
+    }
+
+    this.userDataSubscription = this.userDataService.getLoggedUserData().subscribe((data) => {
+      this.usuarios = data.usuarios;
+      this.loggedUser = data.loggedUser;
+    });
+
+    if (this.usuarios == null) {
+      this.getUsuarios();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.userDataSubscription.unsubscribe();
   }
 
   getUsuarios() {
@@ -37,7 +53,6 @@ export class UsuariosComponent implements OnInit {
       }
 
       this.userDataService.setLoggedUserData(loggedUserData);
-      this.authService.markUserAsLoggedIn();
     })
   }
 
@@ -46,6 +61,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   selecionarUsuarios() {
-    
+
   }
 }

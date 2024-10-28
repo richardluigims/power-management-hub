@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { UserDataService } from '../../services/usuarios/user-data.service';
@@ -12,11 +12,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  loggedUserData: any;
   loggedUser: any;
   routerSubscription: Subscription | null = null;
+  userDataSubscription: any;
   
   constructor(
     private router: Router,
@@ -26,30 +26,32 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.loggedUserData = this.userDataService.getLoggedUserData();
+    this.userDataSubscription = this.userDataService.getLoggedUserData().subscribe((data) => {
+      this.loggedUser = data.loggedUser;
+    })
     
-    if (this.loggedUserData.loggedUser == null) {
+    if (this.loggedUser == null) {
       this.getUser();
-    }
-    else {
-      this.loggedUser = this.loggedUserData.loggedUser;
     }
 
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (event.url == "/login") {          
           this.authService.markUserAsLoggedOut();
+          localStorage.clear();
         }
       }
     })
   }
 
   ngAfterViewInit(): void {
-    let url = this.router.url.split('/')[1];
+    let currentRoute = this.router.url.split('/')[1];
 
-    console.log(url);
+    document.querySelector("#btn_navigate-" + currentRoute)?.classList.add('active');
+  }
 
-    document.querySelector("#btn_navigate-" + url)?.classList.add('active');
+  ngOnDestroy(): void {
+      this.userDataSubscription.unsubscribe();
   }
 
   criarNovoAparelho() {
@@ -60,14 +62,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     let userId = localStorage.getItem('userId') as string;
 
     this.usuariosService.getUsuario(userId).then((result) => {
-      console.log(result);
-      this.loggedUser = result[0];
+      if (result != null) {
+        this.userDataService.setLoggedUserData({ loggedUser: result });
+      }
     })
   }
 
   logout() {
     this.authService.markUserAsLoggedOut();
     this.router.navigateByUrl("/login");
+    localStorage.clear();
   }
 
   navigateTo(url: string, event: any): void {

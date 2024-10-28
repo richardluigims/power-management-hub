@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ export class UserDataService {
     usuarios: null,
     aparelhos: null
   };
+
+  private userDataSubject = new BehaviorSubject<any>(this.userData);
 
   constructor() { }
 
@@ -24,6 +27,8 @@ export class UserDataService {
       aparelhos: (data.aparelhos != undefined) ?
                   data.aparelhos : this.userData.aparelhos
     };
+
+    this.userDataSubject.next(this.userData);
   }
 
   removeUserData() {
@@ -32,7 +37,7 @@ export class UserDataService {
     this.userData.aparelhos = null;
   }
 
-  getLoggedUserData(): any {
-    return this.userData;
+  getLoggedUserData(): Observable<any> {
+    return this.userDataSubject.asObservable();
   }
 }

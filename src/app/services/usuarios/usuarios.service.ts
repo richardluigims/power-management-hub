@@ -17,7 +17,11 @@ export class UsuariosService {
       params: {
         id: userId
       }
-    }))
+    })).then((user: any) => {
+      let result = user[0];
+
+      return result;
+    })
   }
 
   getUsuarios(): Promise<any> {

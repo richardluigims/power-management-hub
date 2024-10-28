@@ -38,6 +38,14 @@ $energy-control-center-theme: mat.define-theme((
 @import 'variables';
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+button {
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+}
+
 * {
     box-sizing: border-box;
     font-family: "Inter", sans-serif;

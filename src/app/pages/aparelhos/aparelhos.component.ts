@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
@@ -14,9 +14,10 @@ import { UserDataService } from '../../services/usuarios/user-data.service';
   templateUrl: './aparelhos.component.html',
   styleUrl: './aparelhos.component.scss'
 })
-export class AparelhosComponent implements OnInit {
+export class AparelhosComponent implements OnInit, OnDestroy {
 
   aparelhos: any = null;
+  userDataSubscription: any;
 
   constructor(
     private aparelhosService: AparelhosService,
@@ -25,23 +26,30 @@ export class AparelhosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.aparelhos = this.userDataService.getLoggedUserData().aparelhos;
+    let userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.authService.markUserAsLoggedIn();
+    }
+
+    this.userDataSubscription = this.userDataService.getLoggedUserData().subscribe((data) => {
+      this.aparelhos = data.aparelhos;
+    });
     
     if (this.aparelhos == null) {
       this.getAparelhos();
     }
   }
 
+  ngOnDestroy(): void {
+      this.userDataSubscription.unsubscribe();
+  }
+
   getAparelhos() {
     this.aparelhosService.getAparelhos().then((result) => {
       this.aparelhos = result;
 
-      let loggedUserData = {
-        aparelhos: this.aparelhos
-      }
-
-      this.userDataService.setLoggedUserData(loggedUserData);
-      this.authService.markUserAsLoggedIn();
+      this.userDataService.setLoggedUserData({ aparelhos: this.aparelhos});
     })
   }
 }

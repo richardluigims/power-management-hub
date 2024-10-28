@@ -26,8 +26,14 @@
                 <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1 21C1 16.7044 4.48223 13.2222 8.77778 13.2222C13.0733 13.2222 16.5556 16.7044 16.5556 21M13.2222 5.44444C13.2222 7.89904 11.2323 9.88889 8.77778 9.88889C6.32318 9.88889 4.33333 7.89904 4.33333 5.44444C4.33333 2.98984 6.32318 1 8.77778 1C11.2323 1 13.2222 2.98984 13.2222 5.44444Z" stroke="#002B1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                    
+
                 {{ usuario.nome }}
+                <!-- @if (usuario.id == loggedUser.id) {
+                    Você
+                }
+                @else {
+                    {{ usuario.nome }}
+                } -->
             </div>
         }
     </div>

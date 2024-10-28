@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { HeaderComponent } from "./shared-components/header/header.component";
 
@@ -10,21 +10,25 @@ import { HeaderComponent } from "./shared-components/header/header.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy {
   
   isUserLoggedIn: boolean = false;
+  userLogObservable: any;
 
   constructor(
     private authService: AuthenticationService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.authService.watchingUserLogState().subscribe((userLogState) => {
-      console.log("entrei no subscribe");
+    this.userLogObservable = this.authService.watchingUserLogState().subscribe((userLogState) => {
       this.isUserLoggedIn = userLogState;
-      console.log(this.isUserLoggedIn);
       this.changeDetectorRef.detectChanges();
     })
+  }
+
+  ngOnDestroy(): void {
+    this.userLogObservable.unsubscribe();
   }
 }

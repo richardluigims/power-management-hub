@@ -38,7 +38,6 @@ nav ul {
         align-items: center;
         justify-content: center;
         font-size: 16px;
-        cursor: pointer;
     
         padding-right: 28px;
         padding-left: 28px;
@@ -95,7 +94,6 @@ nav ul {
         display: flex;
         gap: 8px;
         align-items: center;
-        cursor: pointer;
     }
 
     .user-options-button-container {
@@ -111,7 +109,6 @@ nav ul {
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             padding-right: 24px;
             padding-left: 16px;
             height: 100%;
@@ -192,10 +189,6 @@ nav ul {
             top: 80%;
             opacity: 1;
             pointer-events: auto;
-            
-            .btn_logout {
-                cursor: pointer;
-            }
         }
     }
 }

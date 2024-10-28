@@ -49,13 +49,11 @@ export class LoginComponent implements OnInit {
       if (usuario != null) {
         localStorage.setItem('userId', usuario.id);
 
-        let loggedUserData = {
-          loggedUser: usuario
-        }
+        this.userDataService.setLoggedUserData({ loggedUser: usuario });
 
-        this.userDataService.setLoggedUserData(loggedUserData);
-
-        this.router.navigateByUrl("/aparelhos");
+        this.router.navigateByUrl("/aparelhos").then(() => {
+          this.authService.markUserAsLoggedIn();
+        });
       }
       else {
         alert("Palavra-passe inválida.");
@@ -66,3 +64,4 @@ export class LoginComponent implements OnInit {
     });
   }
 }
+
