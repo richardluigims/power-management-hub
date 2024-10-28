@@ -9,61 +9,113 @@
     flex-direction: column;
     gap: 16px;
     padding: 24px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(var(--midnight-rgb), 0.4);
+    transition: border-color 0.2s;
+
+    * {
+        opacity: 0.8;
+        transition: opacity 0.2s;
+    }
+
+    .card-header {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .btn_on-off {
+        height: 28px;
+        width: 52px;
+        background-color: rgba(var(--turned-off-rgb), 0.25);
+        border-radius: 15px;
+        position: relative;
+        display: flex;
+        padding: 3px;
+        border-style: solid;
+        border-width: 1px;
+        border-color: rgba(var(--midnight-rgb), 0.4);
+        transition: background-color 0.2s, border-color 0.2s;
+        cursor: pointer;
+    }
+    .btn_on-off::after {
+        content: '';
+        height: 100%;
+        width: 50%;
+        border-radius: 50%;
+        background-color: var(--turned-off);
+        transform: translate(0px, 0px);
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .lamp-icon path {
+        fill: rgba(var(--turned-off-rgb), 0.5);
+        transition: fill 0.2s;
+    }
+
+    .fan-icon path {
+        fill: rgba(var(--turned-off-rgb), 0.5);
+        transition: fill 0.2s;
+    }
+    
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+    
+    .description {
+        color: var(--midnight);
+        font-weight: 600;
+    }
+    
+    .room-and-time {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        color: var(--text-medium);
+        font-weight: 600;
+    }
 }
 
-.card-header {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+.card.on {
+    border-color: rgba(var(--midnight-rgb), 1);
+
+    * {
+        opacity: 1;
+    }
+
+    .btn_on-off {
+        background-color: rgba(var(--success-rgb), 0.25);
+        border-color: rgba(var(--midnight-rgb), 1);
+    }
+    
+    .btn_on-off::after {
+        background-color: var(--success);
+        transform: translate(100%, 0px);
+    }
+
+    .lamp-icon path {
+        fill: var(--lamp);
+    }
+
+    .fan-icon svg {
+        animation: spin 0.5s infinite linear;
+    }
+
+    .fan-icon path {
+        fill: var(--fan);
+        transition: fill 0.2s;
+    }
 }
 
-.btn_on-off {
-    height: 28px;
-    width: 52px;
-    background-color: rgba(var(--turned-off-rgb), 0.25);
-    border-radius: 15px;
-    position: relative;
-    display: flex;
-    padding: 3px;
-    border: 1px solid var(--midnight);
-    transition: background-color 0.2s;
-    cursor: pointer;
-}
-.btn_on-off::after {
-    content: '';
-    height: 100%;
-    width: 50%;
-    border-radius: 50%;
-    background-color: var(--turned-off);
-    transform: translate(0px, 0px);
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-.btn_on-off.on {
-    background-color: rgba(var(--success-rgb), 0.25);
-}
-
-.btn_on-off.on::after {
-    background-color: var(--success);
-    transform: translate(100%, 0px);
-}
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-}
-
-.description {
-    color: var(--midnight);
-    font-weight: 600;
-}
-
-.room-and-time {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    color: var(--text-medium);
-    font-weight: 600;
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

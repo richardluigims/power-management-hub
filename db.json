@@ -32,6 +32,12 @@
             "tipo": 1,
             "descricao": "Lâmpada Wifi 1",
             "comodo": "Sala de estar"
+        },
+        {
+            "id": 2,
+            "tipo": 2,
+            "descricao": "Lâmpada Wifi 2",
+            "comodo": "Garagem"
         }
     ]
 }

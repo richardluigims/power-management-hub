@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AparelhoEnum } from '../../../../enums/aparelho-enum';
 
 @Component({
   selector: 'app-card-aparelho',
@@ -7,7 +8,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './card-aparelho.component.html',
   styleUrl: './card-aparelho.component.scss'
 })
-export class CardAparelhoComponent {
+export class CardAparelhoComponent implements AfterViewInit {
   @Input() aparelho: any;
   minutos: number = 0;
   segundos: number = 0;
@@ -15,8 +16,14 @@ export class CardAparelhoComponent {
   countingMinutes: any = null;
   countingSeconds: any = null;
   isPowerOn: boolean = false;
+  aparelhoElement: HTMLElement | null = null;
+  aparelhoEnum = AparelhoEnum;
 
   constructor() { }
+
+  ngAfterViewInit(): void {
+      this.aparelhoElement = document.querySelector("#aparelho_" + this.aparelho.id);
+  }
 
   togglePowerOnOff(event: Event) {
     let buttonOnOff: any = event.target;
@@ -53,7 +60,7 @@ export class CardAparelhoComponent {
       this.isPowerOn = false;
     }
 
-    buttonOnOff.classList.toggle('on');
+    this.aparelhoElement?.classList.toggle('on');
   }
 
   formatTime() {
