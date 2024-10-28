@@ -37,7 +37,11 @@ export class UserDataService {
     this.userData.aparelhos = null;
   }
 
-  getLoggedUserData(): Observable<any> {
+  watchLoggedUserData(): Observable<any> {
     return this.userDataSubject.asObservable();
+  }
+
+  getLoggedUserData(): any {
+    return this.userData;
   }
 }

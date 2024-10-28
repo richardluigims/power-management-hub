@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.userDataSubscription = this.userDataService.getLoggedUserData().subscribe((data) => {
+    this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
       this.loggedUser = data.loggedUser;
     })
     

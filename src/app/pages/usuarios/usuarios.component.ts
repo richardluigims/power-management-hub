@@ -30,7 +30,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.authService.markUserAsLoggedIn();
     }
 
-    this.userDataSubscription = this.userDataService.getLoggedUserData().subscribe((data) => {
+    this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
       this.usuarios = data.usuarios;
       this.loggedUser = data.loggedUser;
     });

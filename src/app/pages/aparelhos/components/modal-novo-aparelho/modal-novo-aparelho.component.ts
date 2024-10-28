@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ModalNovoAparelhoControlService } from './modal-novo-aparelho-control.service';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AparelhosService } from '../../../../services/aparelhos/aparelhos.service';
+import { UserDataService } from '../../../../services/usuarios/user-data.service';
 
 @Component({
   selector: 'app-modal-novo-aparelho',
@@ -18,7 +19,8 @@ export class ModalNovoAparelhoComponent implements OnInit, AfterViewInit {
   constructor(
     private modalControlService: ModalNovoAparelhoControlService,
     private formBuilder: FormBuilder,
-    private aparelhosService: AparelhosService
+    private aparelhosService: AparelhosService,
+    private userDataService: UserDataService
   ) { }
 
   ngOnInit(): void {
@@ -39,7 +41,7 @@ export class ModalNovoAparelhoComponent implements OnInit, AfterViewInit {
     })
   }
 
-  criarAparelho() {
+  async criarAparelho() {
     if (this.novoAparelhoForm.invalid) {
       return;
     }
@@ -50,10 +52,18 @@ export class ModalNovoAparelhoComponent implements OnInit, AfterViewInit {
       comodo: this.novoAparelhoForm.get('comodo').value,
     }
 
-    console.log(novoAparelho);
-
     this.aparelhosService.createAparelho(novoAparelho).then((response) => {
-      console.log(response);
+      // let aparelhosRegistrados = this.userDataService.watchLoggedUserData()
+      let aparelhosRegistrados = [
+        ...this.userDataService.getLoggedUserData().aparelhos,
+        response
+      ];
+
+      this.userDataService.setLoggedUserData({
+        aparelhos: aparelhosRegistrados
+      });
+
+      this.closeModal();
     })
   }
 

@@ -32,7 +32,7 @@ export class AparelhosComponent implements OnInit, OnDestroy {
       this.authService.markUserAsLoggedIn();
     }
 
-    this.userDataSubscription = this.userDataService.getLoggedUserData().subscribe((data) => {
+    this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
       this.aparelhos = data.aparelhos;
     });
     

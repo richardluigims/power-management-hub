@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AparelhoEnum } from '../../../../enums/aparelho-enum';
 import { AparelhosControlService } from '../../../../services/aparelhos/aparelhos-control.service';
 import { ComodoEnum } from '../../../../enums/comodo-enum';
+import { IntervalService } from '../../../../services/interval/interval.service';
 
 @Component({
   selector: 'app-card-aparelho',
@@ -15,20 +16,21 @@ export class CardAparelhoComponent implements AfterViewInit {
   minutos: number = 0;
   segundos: number = 0;
   tempoLigado: string | null = null;
-  countingSeconds: any = null;
+  // countingSeconds: any = null;
   isPowerOn: boolean = false;
   aparelhoElement: HTMLElement | null = null;
   aparelhoEnum = AparelhoEnum;
   comodoEnum = ComodoEnum;
 
   constructor(
-    private aparelhosControlService: AparelhosControlService
+    private aparelhosControlService: AparelhosControlService,
+    private intervalService: IntervalService
   ) { }
 
   ngOnInit(): void {
     let aparelho = this.aparelhosControlService.getAparelho(this.aparelho.id)
 
-    console.log(this.aparelho);
+    console.log(aparelho);
 
     if (aparelho == null || aparelho == undefined) {
       this.aparelhosControlService.addAparelho(this.aparelho.id);
@@ -52,11 +54,12 @@ export class CardAparelhoComponent implements AfterViewInit {
     }
   }
 
+
   powerOn() {
     this.formatTime();
     this.aparelhosControlService.ligarAparelho(this.aparelho.id);
 
-    this.countingSeconds = setInterval(() => {
+    this.intervalService.startInterval(this.aparelho.id, 1000, () => {
       this.segundos++;
 
       if (this.segundos == 60) {
@@ -67,7 +70,7 @@ export class CardAparelhoComponent implements AfterViewInit {
       this.formatTime();
 
       this.aparelhosControlService.setTempoLigado(this.aparelho.id, this.minutos, this.segundos);
-    }, 1000);
+    })
 
     this.isPowerOn = true;
 
@@ -75,7 +78,7 @@ export class CardAparelhoComponent implements AfterViewInit {
   }
 
   powerOff() {
-    clearInterval(this.countingSeconds);
+    this.intervalService.stopInterval(this.aparelho.id);
 
     this.segundos = 0;
     this.minutos = 0;

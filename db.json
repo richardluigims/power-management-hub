@@ -32,6 +32,30 @@
       "tipo": "1",
       "descricao": "Lâmpada Wifi 1",
       "comodo": "2"
+    },
+    {
+      "id": "42f4",
+      "tipo": "2",
+      "descricao": "Ventilador",
+      "comodo": "3"
+    },
+    {
+      "id": "c53e",
+      "tipo": "3",
+      "descricao": "SmartTv",
+      "comodo": "1"
+    },
+    {
+      "id": "6772",
+      "tipo": "2",
+      "descricao": "Teste",
+      "comodo": "1"
+    },
+    {
+      "id": "c042",
+      "tipo": "3",
+      "descricao": "Teste 2",
+      "comodo": "1"
     }
   ]
 }
