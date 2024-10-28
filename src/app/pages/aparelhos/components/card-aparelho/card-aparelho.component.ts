@@ -33,7 +33,10 @@ export class CardAparelhoComponent implements AfterViewInit {
       this.isPowerOn = aparelho.isPowerOn;
       this.minutos = aparelho.minutos;
       this.segundos = aparelho.segundos;
-      this.formatTime();
+
+      if (this.isPowerOn) {
+        this.formatTime();
+      }
     }
   }
 

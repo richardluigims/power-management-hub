@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { UserDataService } from '../../services/usuarios/user-data.service';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
 
   loggedUserData: any;
   loggedUser: any;
@@ -42,6 +42,14 @@ export class HeaderComponent implements OnInit {
         }
       }
     })
+  }
+
+  ngAfterViewInit(): void {
+    let url = this.router.url.split('/')[1];
+
+    console.log(url);
+
+    document.querySelector("#btn_navigate-" + url)?.classList.add('active');
   }
 
   criarNovoAparelho() {

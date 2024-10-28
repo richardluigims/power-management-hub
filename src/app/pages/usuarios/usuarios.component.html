@@ -1,1 +1,19 @@
-<p>usuarios works!</p>
+<section class="container">
+    <div class="functionalities-container">
+        <button class="btn_selecionar" (click)="selecionarUsuarios()">
+            Selecionar
+        </button>
+
+        <button class="btn_criar-usuario" (click)="criarUsuario()">
+            Criar usuário
+        </button>
+    </div>
+    
+    <div class="usuarios-container">
+        @for(usuario of usuarios; track usuario.id) {
+            <div class="usuario-card">
+                {{ usuario.nome }}
+            </div>
+        }
+    </div>
+</section>

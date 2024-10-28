@@ -21,7 +21,9 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.authService.watchingUserLogState().subscribe((userLogState) => {
+      console.log("entrei no subscribe");
       this.isUserLoggedIn = userLogState;
+      console.log(this.isUserLoggedIn);
       this.changeDetectorRef.detectChanges();
     })
   }
