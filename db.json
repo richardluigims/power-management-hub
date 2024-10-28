@@ -1,49 +1,37 @@
 {
-    "usuarios": [
-        {
-            "id": 1,
-            "nome": "Richard Luigi Mantoan Stopa",
-            "palavraPasse": "23012002"
-        },
-        {
-            "id": 2,
-            "nome": "Andrew Isac Mantoan Stopa",
-            "palavraPasse": "02102003"
-        },
-        {
-            "id": 3,
-            "nome": "Guilherme Gaspar",
-            "palavraPasse": "18122003"
-        },
-        {
-            "id": 4,
-            "nome": "Antonio Vitor",
-            "palavraPasse": "12061999"
-        },
-        {
-            "id": 5,
-            "nome": "Gabriel Guedes",
-            "palavraPasse": "14032002"
-        }
-    ],
-    "aparelhos": [
-        {
-            "id": 1,
-            "tipo": 1,
-            "descricao": "Lâmpada Wifi 1",
-            "comodo": "Sala de estar"
-        },
-        {
-            "id": 2,
-            "tipo": 2,
-            "descricao": "Ventilador",
-            "comodo": "Sala de estar"
-        },
-        {
-            "id": 3,
-            "tipo": 3,
-            "descricao": "Televisão",
-            "comodo": "Sala de estar"
-        }
-    ]
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Richard Luigi Mantoan Stopa",
+      "palavraPasse": "23012002"
+    },
+    {
+      "id": 2,
+      "nome": "Andrew Isac Mantoan Stopa",
+      "palavraPasse": "02102003"
+    },
+    {
+      "id": 3,
+      "nome": "Guilherme Gaspar",
+      "palavraPasse": "18122003"
+    },
+    {
+      "id": 4,
+      "nome": "Antonio Vitor",
+      "palavraPasse": "12061999"
+    },
+    {
+      "id": 5,
+      "nome": "Gabriel Guedes",
+      "palavraPasse": "14032002"
+    }
+  ],
+  "aparelhos": [
+    {
+      "id": "067e",
+      "tipo": "1",
+      "descricao": "Lâmpada Wifi 1",
+      "comodo": "2"
+    }
+  ]
 }

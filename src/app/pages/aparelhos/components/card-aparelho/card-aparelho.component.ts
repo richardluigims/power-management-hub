@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AparelhoEnum } from '../../../../enums/aparelho-enum';
 import { AparelhosControlService } from '../../../../services/aparelhos/aparelhos-control.service';
+import { ComodoEnum } from '../../../../enums/comodo-enum';
 
 @Component({
   selector: 'app-card-aparelho',
@@ -18,6 +19,7 @@ export class CardAparelhoComponent implements AfterViewInit {
   isPowerOn: boolean = false;
   aparelhoElement: HTMLElement | null = null;
   aparelhoEnum = AparelhoEnum;
+  comodoEnum = ComodoEnum;
 
   constructor(
     private aparelhosControlService: AparelhosControlService
@@ -25,6 +27,8 @@ export class CardAparelhoComponent implements AfterViewInit {
 
   ngOnInit(): void {
     let aparelho = this.aparelhosControlService.getAparelho(this.aparelho.id)
+
+    console.log(this.aparelho);
 
     if (aparelho == null || aparelho == undefined) {
       this.aparelhosControlService.addAparelho(this.aparelho.id);

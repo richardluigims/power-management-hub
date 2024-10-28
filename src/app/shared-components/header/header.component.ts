@@ -4,6 +4,7 @@ import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { UserDataService } from '../../services/usuarios/user-data.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Subscription } from 'rxjs';
+import { ModalNovoAparelhoControlService } from '../../pages/aparelhos/components/modal-novo-aparelho/modal-novo-aparelho-control.service';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private usuariosService: UsuariosService,
     private userDataService: UserDataService,
     private authService: AuthenticationService,
+    private modalNovoAparelho: ModalNovoAparelhoControlService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +57,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   criarNovoAparelho() {
-
+    this.modalNovoAparelho.toggleModalNovoAparelho();
   }
 
   getUser() {

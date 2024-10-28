@@ -1,0 +1,82 @@
+<dialog id="modal" class="modal-container" (close)="onClose()">
+    <form (ngSubmit)="criarAparelho()" [formGroup]="novoAparelhoForm" class="modal-content" autocomplete="off">
+        <div class="title">
+            Novo aparelho
+        </div>
+
+        <div class="radio-group-container" id="radio-group-tipo">
+            <div class="radio-group-title">
+                Escolha o tipo
+            </div>
+
+            <div class="radio-group">
+                <div>
+                    <input type="radio" value="1" id="lamp-radio" name="tipo" formControlName="tipo">
+                    <label for="lamp-radio">
+                        Lâmpada Wifi
+                    </label>
+                </div>
+                
+                <div>
+                    <input type="radio" value="2" id="fan-radio" name="tipo" formControlName="tipo">
+                    <label for="fan-radio">
+                        Ventilador
+                    </label>
+                </div>
+    
+                <div>
+                    <input type="radio" value="3" id="television-radio" name="tipo" formControlName="tipo">
+                    <label for="television-radio">
+                        SmartTv
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="radio-group-container">
+            <div class="radio-group-title">
+                Onde ele fica?
+            </div>
+
+            <div class="radio-group">
+                <div>
+                    <input type="radio" value="1" id="living-room-radio" name="comodo" formControlName="comodo">
+                    <label for="living-room-radio">
+                        Sala de estar
+                    </label>
+                </div>
+
+                <div>
+                    <input type="radio" value="2" id="kitchen-radio" name="comodo" formControlName="comodo">
+                    <label for="kitchen-radio">
+                        Cozinha
+                    </label>
+                </div>
+
+                <div>
+                    <input type="radio" value="3" id="office-radio" name="comodo" formControlName="comodo">
+                    <label for="office-radio">
+                        Escritório
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <label>
+                Mais algum detalhe?
+            </label>
+            <input type="text" placeholder="Insira uma descrição" formControlName="descricao">
+        </div>
+
+        <div class="options-container">
+            <button class="form-button btn_tertiary" type="button" (click)="closeModal()">
+                Retornar
+            </button>
+
+            <button type="submit" class="form-button btn_primary" [disabled]="novoAparelhoForm.invalid">
+                Criar
+            </button>
+        </div>
+    </form>
+</dialog>

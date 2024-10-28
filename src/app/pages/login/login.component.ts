@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let palavraPasse = this.loginForm.get('palavraPasse').value;
-
-    if (palavraPasse === null) {
+    if (!this.loginForm.valid) {
       return;
     }
+
+    let palavraPasse = this.loginForm.get('palavraPasse').value;
 
     this.authService.login(palavraPasse).then((usuario) => {
       if (usuario != null) {
