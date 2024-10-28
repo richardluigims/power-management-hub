@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { UsuariosService } from '../usuarios/usuarios.service';
+import { UserDataService } from '../userData/user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthenticationService {
 
   constructor(
     private httpClient: HttpClient,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private userDataService: UserDataService
   ) { }
 
   login(palavraPasse: any): Promise<any> {
@@ -41,12 +43,12 @@ export class AuthenticationService {
     this.isUserLogged = false;
 
     let loggedUserData = {
-      loggedUser: undefined,
-      aparelhos: undefined,
-      usuarios: undefined
+      loggedUser: null,
+      aparelhos: null,
+      usuarios: null
     }
 
-    this.usuariosService.setLoggedUserData(loggedUserData);
+    this.userDataService.setLoggedUserData(loggedUserData);
 
     this.loginSubject.next(this.isUserLogged);
   }

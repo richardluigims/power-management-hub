@@ -13,7 +13,6 @@ export class CardAparelhoComponent implements AfterViewInit {
   minutos: number = 0;
   segundos: number = 0;
   tempoLigado: string | null = null;
-  countingMinutes: any = null;
   countingSeconds: any = null;
   isPowerOn: boolean = false;
   aparelhoElement: HTMLElement | null = null;
@@ -21,13 +20,15 @@ export class CardAparelhoComponent implements AfterViewInit {
 
   constructor() { }
 
+  ngOnInit(): void {
+    
+  }
+
   ngAfterViewInit(): void {
       this.aparelhoElement = document.querySelector("#aparelho_" + this.aparelho.id);
   }
 
-  togglePowerOnOff(event: Event) {
-    let buttonOnOff: any = event.target;
-
+  togglePowerOnOff() {
     if (!this.isPowerOn) {
       this.formatTime();
 
@@ -36,22 +37,16 @@ export class CardAparelhoComponent implements AfterViewInit {
 
         if (this.segundos > 60) {
           this.segundos = 0;
+          this.minutos++;
         }
 
         this.formatTime();
       }, 1000);
 
-      this.countingMinutes = setInterval(() => {
-        this.minutos++;
-
-        this.formatTime();
-      }, 60000);
-
       this.isPowerOn = true;      
     }
     else {
       clearInterval(this.countingSeconds);
-      clearInterval(this.countingMinutes);
 
       this.segundos = 0;
       this.minutos = 0;

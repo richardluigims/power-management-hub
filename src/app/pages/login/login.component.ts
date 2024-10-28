@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
+import { UserDataService } from '../../services/userData/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthenticationService,
     private router: Router,
     private usuariosService: UsuariosService,
-    private aparelhosService: AparelhosService
+    private aparelhosService: AparelhosService,
+    private userDataService: UserDataService
   ) {}
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
           loggedUser: usuario
         }
 
-        this.usuariosService.setLoggedUserData(loggedUserData);
+        this.userDataService.setLoggedUserData(loggedUserData);
 
         this.router.navigateByUrl("/aparelhos");
       }

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
+import { UserDataService } from '../../services/userData/user-data.service';
 
 @Component({
   selector: 'app-header',
@@ -18,10 +19,11 @@ export class HeaderComponent implements AfterViewInit {
   constructor(
     private router: Router,
     private usuariosService: UsuariosService,
+    private userDataSevice: UserDataService
   ) {}
 
   ngOnInit(): void {
-    this.loggedUserData = this.usuariosService.getLoggedUserData();
+    this.loggedUserData = this.userDataSevice.getLoggedUserData();
     
     if (this.loggedUserData.loggedUser == null) {
       this.getUser();

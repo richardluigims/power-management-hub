@@ -3,6 +3,7 @@ import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { CardAparelhoComponent } from './components/card-aparelho/card-aparelho.component';
+import { UserDataService } from '../../services/userData/user-data.service';
 
 @Component({
   selector: 'app-aparelhos',
@@ -19,12 +20,13 @@ export class AparelhosComponent implements OnInit {
 
   constructor(
     private aparelhosService: AparelhosService,
+    private userDataService: UserDataService,
     private usuariosService: UsuariosService,
     private authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
-    this.aparelhos = this.usuariosService.getLoggedUserData().aparelhos;
+    this.aparelhos = this.userDataService.getLoggedUserData().aparelhos;
     
     if (this.aparelhos == null) {
       this.getAparelhos();
@@ -39,7 +41,7 @@ export class AparelhosComponent implements OnInit {
         aparelhos: this.aparelhos
       }
 
-      this.usuariosService.setLoggedUserData(loggedUserData);
+      this.userDataService.setLoggedUserData(loggedUserData);
       this.authService.markUserAsLoggedIn();
     })
   }
