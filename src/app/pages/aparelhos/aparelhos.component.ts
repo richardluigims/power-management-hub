@@ -29,8 +29,6 @@ export class AparelhosComponent implements OnInit {
     if (this.aparelhos == null) {
       this.getAparelhos();
     }
-
-    this.authService.markUserAsLoggedIn();
   }
 
   getAparelhos() {
@@ -42,6 +40,7 @@ export class AparelhosComponent implements OnInit {
       }
 
       this.usuariosService.setLoggedUserData(loggedUserData);
+      this.authService.markUserAsLoggedIn();
     })
   }
 }

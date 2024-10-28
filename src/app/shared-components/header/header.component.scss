@@ -2,10 +2,16 @@ header {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding-top: 32px;
+    background-color: var(--background-medium);
+    position: sticky;
+    top: 0;
+    padding-bottom: 48px;
 }
 
 nav {
     width: fit-content;
+    height: 62px;
 }
 
 nav ul {
@@ -14,15 +20,70 @@ nav ul {
     gap: 16px;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
-li {
+.user-options-button-container {
     position: relative;
     display: flex;
     align-items: center;
+
+    .btn_user-options {
+        color: var(--midnight);
+        background-color: white;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        padding-right: 24px;
+        padding-left: 16px;
+        height: 100%;
+        gap: 16px;
+        margin-right: 16px;
+    }
 }
 
-li::after {
+.user-options-button-container::after {
+    content: '';
+    height: 100%;
+    width: 1px;
+    background-color: var(--midnight);
+}
+
+.navigation-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .btn_navigation {
+        color: var(--midnight);
+        background-color: white;
+        text-decoration: none;
+        border-radius: 80px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+    
+        padding-right: 28px;
+        padding-left: 28px;
+        height: 100%;
+    
+        margin-right: 16px;
+        border: solid 2px var(--midnight);
+    }
+
+    .btn_navigation.active {
+        background-color: var(--primary);
+        color: white;
+        font-weight: 500;
+    }
+}
+
+.navigation-item::after {
     content: '';
     width: 5px;
     height: 5px;
@@ -30,30 +91,12 @@ li::after {
     background-color: var(--midnight);
 }
 
-li:last-of-type::after {
+.navigation-item:last-of-type::after {
     content: '';
     width: 0px;
     height: 0px;
 }
 
-li a {
-    color: var(--midnight);
-    background-color: white;
-    text-decoration: none;
-    border-radius: 80px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-
-    padding-right: 24px;
-    padding-left: 24px;
-    height: 48px;
-
-    margin-right: 16px;
-    border: solid 1px var(--midnight);
-}
 
 .active li a {
     background-color: var(--primary);

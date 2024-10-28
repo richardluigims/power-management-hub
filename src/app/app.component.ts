@@ -14,6 +14,7 @@ import { HeaderComponent } from "./shared-components/header/header.component";
 export class AppComponent implements OnInit{
   
   isUserLoggedIn: boolean = false;
+  loggedUser: any;
 
   constructor(
     private usuariosService: UsuariosService,
@@ -24,6 +25,9 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.authService.watchingUserLogState().subscribe((userLogState) => {
       this.isUserLoggedIn = userLogState;
+
+      this.loggedUser = this.usuariosService.getLoggedUserData();
+
       this.changeDetectorRef.detectChanges();
     })
   }

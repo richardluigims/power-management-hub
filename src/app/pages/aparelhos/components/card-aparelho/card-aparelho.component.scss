@@ -58,6 +58,11 @@
         fill: rgba(var(--turned-off-rgb), 0.5);
         transition: fill 0.2s;
     }
+
+    .television-icon path {
+        fill: rgba(var(--turned-off-rgb), 0.5);
+        transition: fill 0.2s;
+    }
     
     .card-body {
         display: flex;
@@ -107,6 +112,11 @@
 
     .fan-icon path {
         fill: var(--fan);
+        transition: fill 0.2s;
+    }
+
+    .television-icon path {
+        fill: var(--television);
         transition: fill 0.2s;
     }
 }

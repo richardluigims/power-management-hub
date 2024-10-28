@@ -36,8 +36,14 @@
         {
             "id": 2,
             "tipo": 2,
-            "descricao": "Lâmpada Wifi 2",
-            "comodo": "Garagem"
+            "descricao": "Ventilador",
+            "comodo": "Sala de estar"
+        },
+        {
+            "id": 3,
+            "tipo": 3,
+            "descricao": "Televisão",
+            "comodo": "Sala de estar"
         }
     ]
 }
