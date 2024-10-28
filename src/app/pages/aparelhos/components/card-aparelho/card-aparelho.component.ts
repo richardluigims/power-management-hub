@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { AparelhoEnum } from '../../../../enums/aparelho-enum';
-import { UserDataService } from '../../../../services/usuarios/user-data.service';
 import { AparelhosControlService } from '../../../../services/aparelhos/aparelhos-control.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class CardAparelhoComponent implements AfterViewInit {
   aparelhoEnum = AparelhoEnum;
 
   constructor(
-    private userDataService: UserDataService,
     private aparelhosControlService: AparelhosControlService
   ) { }
 
@@ -54,7 +52,7 @@ export class CardAparelhoComponent implements AfterViewInit {
     this.countingSeconds = setInterval(() => {
       this.segundos++;
 
-      if (this.segundos > 60) {
+      if (this.segundos == 60) {
         this.segundos = 0;
         this.minutos++;
       }
@@ -83,8 +81,8 @@ export class CardAparelhoComponent implements AfterViewInit {
   }
 
   formatTime() {
-    let formatedMinutes = this.minutos > 10 ? this.minutos : "0" + this.minutos;
-    let formatedSeconds = this.segundos > 10 ? this.segundos : "0" + this.segundos;
+    let formatedMinutes = this.minutos >= 10 ? this.minutos : "0" + this.minutos;
+    let formatedSeconds = this.segundos >= 10 ? this.segundos : "0" + this.segundos;
 
     this.tempoLigado = formatedMinutes + ":" + formatedSeconds;
   }

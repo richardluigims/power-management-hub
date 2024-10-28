@@ -23,75 +23,6 @@ nav ul {
     height: 100%;
 }
 
-.user-options-button-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-
-    .btn_user-options {
-        color: var(--midnight);
-        background-color: white;
-        border-radius: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        padding-right: 24px;
-        padding-left: 16px;
-        height: 100%;
-        margin-right: 16px;
-
-        .user-icon {
-            margin-right: 8px;
-        }
-
-        .username {
-            font-size: 16px;
-            font-weight: 500;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 0px;
-            margin-left: 0px;
-            margin-right: 0px;
-            transition: max-width 0.5s ease-out,
-                        margin-left 0.4s ease-out,
-                        margin-right 0.4s ease-out;
-        }
-
-        .chevron-icon {
-            margin-left: 8px;
-
-            svg {
-                transform: rotate(0deg);
-                transition: transform 0.2s;
-            }
-        }
-    }
-}
-
-.user-options-button-container.show-user-options {
-    .btn_user-options {
-        .username {
-            max-width: 150px;
-            margin-left: 4px;
-            margin-right: 8px;
-        }
-
-        .chevron-icon {
-            svg {
-                transform: rotate(180deg);
-            }
-        }
-    }
-}
-
-.user-options-button-container::after {
-    content: '';
-    height: 100%;
-    width: 1px;
-    background-color: var(--midnight);
-}
-
 .navigation-item {
     position: relative;
     display: flex;
@@ -142,4 +73,90 @@ nav ul {
 .active li a {
     background-color: var(--primary);
     color: white;
+}
+
+.functionalities-container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: end;
+    height: 62px;
+
+    .btn_novo-aparelho {
+        height: 48px;
+        background-color: var(--decorative-2);
+        padding-right: 16px;
+        padding-left: 16px;
+        border: solid 2px var(--midnight);
+        font-size: 16px;
+        border-radius: 50px;
+        color: var(--midnight);
+        font-weight: 600;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .user-options-button-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    
+        .btn_user-options {
+            color: var(--midnight);
+            background-color: white;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding-right: 24px;
+            padding-left: 16px;
+            height: 100%;
+    
+            .user-icon {
+                margin-right: 8px;
+            }
+    
+            .username {
+                font-size: 16px;
+                font-weight: 500;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 0px;
+                margin-left: 0px;
+                margin-right: 0px;
+                transition: max-width 0.3s,
+                            margin-left 0.4s,
+                            margin-right 0.4s;
+            }
+    
+            .chevron-icon {
+                margin-left: 8px;
+    
+                svg {
+                    transform: rotate(0deg);
+                    transition: transform 0.2s;
+                }
+            }
+        }
+    }
+    
+    .user-options-button-container.show-user-options {
+        .btn_user-options {
+            .username {
+                max-width: 150px;
+                margin-left: 4px;
+                margin-right: 8px;
+            }
+    
+            .chevron-icon {
+                svg {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
 }

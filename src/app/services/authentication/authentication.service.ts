@@ -47,8 +47,4 @@ export class AuthenticationService {
   watchingUserLogState(): Observable<boolean> {
     return this.loginSubject.asObservable();
   }
-
-  isUserLoggedIn(): boolean {
-    return this.isUserLogged;
-  }
 }

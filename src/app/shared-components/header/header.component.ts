@@ -49,7 +49,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.userOptionsButtonContainer = document.querySelector("#user-options-button-container");
   }
   
-  
+  criarNovoAparelho() {
+    
+  }
 
   getUser() {
     let userId = localStorage.getItem('userId') as string;

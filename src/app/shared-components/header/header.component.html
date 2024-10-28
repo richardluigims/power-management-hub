@@ -1,31 +1,6 @@
 <header>
     <nav>
         <ul>
-            <li class="user-options-button-container" id="user-options-button-container">
-                <button class="btn_user-options" (click)="showUserOptions()">
-                    <div class="user-icon">
-                        <svg width="35" height="34" viewBox="0 0 35 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M17.5007 16.9999C20.1516 16.9999 22.3007 14.8509 22.3007 12.1999C22.3007 9.54894 20.1516 7.3999 17.5007 7.3999C14.8497 7.3999 12.7007 9.54894 12.7007 12.1999C12.7007 14.8509 14.8497 16.9999 17.5007 16.9999Z" stroke="#002B1E" stroke-width="1.5"/>
-                            <path d="M17.5005 33C26.337 33 33.5005 25.8366 33.5005 17C33.5005 8.16344 26.337 1 17.5005 1C8.66393 1 1.50049 8.16344 1.50049 17C1.50049 25.8366 8.66393 33 17.5005 33Z" stroke="#002B1E" stroke-width="1.5"/>
-                            <path d="M27.0506 29.8002C26.796 25.1738 25.3795 21.8002 17.4998 21.8002C9.62034 21.8002 8.20386 25.1738 7.94922 29.8002" stroke="#002B1E" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    
-                    <div class="username">
-                        {{ loggedUser?.nome?.split(" ")[0] }}
-                    </div>
-
-                    <div class="chevron-icon">
-                        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0.731117 1.92276L5.11289 7.49543C5.49667 8.16819 6.11902 8.16819 6.50296 7.49543L10.8843 1.92355C10.97 1.80165 11.0622 1.58399 11.081 1.43618C11.1412 0.957192 11.1891 0 10.6084 0H1.00757C0.426882 0 0.4745 0.956641 0.534633 1.4355C0.553252 1.58333 0.645622 1.80086 0.731117 1.92276Z" fill="#002B1E"/>
-                        </svg>                            
-                    </div>
-                </button>
-
-                <div class="user-options-container">
-
-                </div>
-            </li>
             <li class="navigation-item">
                 <a (click)="navigateTo('aparelhos', $event)" class="btn_navigation active" role="button">
                     Aparelhos
@@ -40,6 +15,39 @@
     </nav>
     
     <div class="functionalities-container">
-        Teste
+        <button class="btn_novo-aparelho" (click)="criarNovoAparelho()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.88525 8H13.8853" stroke="#002B1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.88525 2V14" stroke="#002B1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+                
+            Novo aparelho
+        </button>
+
+        <div class="user-options-button-container" id="user-options-button-container">
+            <button class="btn_user-options" (click)="showUserOptions()">
+                <div class="user-icon">
+                    <svg width="35" height="34" viewBox="0 0 35 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5007 16.9999C20.1516 16.9999 22.3007 14.8509 22.3007 12.1999C22.3007 9.54894 20.1516 7.3999 17.5007 7.3999C14.8497 7.3999 12.7007 9.54894 12.7007 12.1999C12.7007 14.8509 14.8497 16.9999 17.5007 16.9999Z" stroke="#002B1E" stroke-width="1.5"/>
+                        <path d="M17.5005 33C26.337 33 33.5005 25.8366 33.5005 17C33.5005 8.16344 26.337 1 17.5005 1C8.66393 1 1.50049 8.16344 1.50049 17C1.50049 25.8366 8.66393 33 17.5005 33Z" stroke="#002B1E" stroke-width="1.5"/>
+                        <path d="M27.0506 29.8002C26.796 25.1738 25.3795 21.8002 17.4998 21.8002C9.62034 21.8002 8.20386 25.1738 7.94922 29.8002" stroke="#002B1E" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                
+                <div class="username">
+                    {{ loggedUser?.nome?.split(" ")[0] }}
+                </div>
+
+                <div class="chevron-icon">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.731117 1.92276L5.11289 7.49543C5.49667 8.16819 6.11902 8.16819 6.50296 7.49543L10.8843 1.92355C10.97 1.80165 11.0622 1.58399 11.081 1.43618C11.1412 0.957192 11.1891 0 10.6084 0H1.00757C0.426882 0 0.4745 0.956641 0.534633 1.4355C0.553252 1.58333 0.645622 1.80086 0.731117 1.92276Z" fill="#002B1E"/>
+                    </svg>                            
+                </div>
+            </button>
+
+            <div class="user-options-container">
+
+            </div>
+        </div>
     </div>
 </header>
