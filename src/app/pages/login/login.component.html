@@ -14,7 +14,7 @@
                 </label>
                 <div class="form-input">
                     <input [type]="inputType" formControlName="palavraPasse" id="input_palavra-passe">
-                    <button class="btn-eye-icon" type="button" (click)="ToggleInputVisibility('input_palavra-passe')">
+                    <button class="btn-eye-icon" type="button" (click)="ToggleInputVisibility()">
                         @if (inputType == "password") {
                             <img src="assets/images/eye-hidden-icon.svg" />
                         }

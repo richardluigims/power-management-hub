@@ -39,8 +39,48 @@ nav ul {
         padding-right: 24px;
         padding-left: 16px;
         height: 100%;
-        gap: 16px;
         margin-right: 16px;
+
+        .user-icon {
+            margin-right: 8px;
+        }
+
+        .username {
+            font-size: 16px;
+            font-weight: 500;
+            overflow: hidden;
+            max-width: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            transition: max-width 0.5s ease-out,
+                        margin-left 0.4s ease-out,
+                        margin-right 0.4s ease-out;
+        }
+
+        .chevron-icon {
+            margin-left: 8px;
+
+            svg {
+                transform: rotate(0deg);
+                transition: transform 0.2s;
+            }
+        }
+    }
+}
+
+.user-options-button-container.show-user-options {
+    .btn_user-options {
+        .username {
+            max-width: 200px;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+
+        .chevron-icon {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
     }
 }
 

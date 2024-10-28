@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ToggleInputVisibility(inputId: string): void {
+  ToggleInputVisibility(): void {
     this.inputType == "text" ? this.inputType = "password" : this.inputType = "text";
   }
 
@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(palavraPasse).then((usuario) => {
       if (usuario != null) {
+        localStorage.setItem('userId', usuario.id);
 
         let loggedUserData = {
           loggedUser: usuario

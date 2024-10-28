@@ -8,14 +8,22 @@ import { firstValueFrom } from 'rxjs';
 export class UsuariosService {
   private API_URL = 'http://localhost:3000/usuarios';  // URL to web api
   private userData: any = {
-    loggedUser: undefined,
-    usuarios: undefined,
-    aparelhos: undefined
+    loggedUser: null,
+    usuarios: null,
+    aparelhos: null
   };
 
   constructor(
     private httpClient: HttpClient
   ) { }
+
+  getUsuario(userId: string): Promise<any> {
+    return firstValueFrom(this.httpClient.get(this.API_URL, {
+      params: {
+        id: userId
+      }
+    }))
+  }
 
   getUsuarios(): Promise<any> {
     return firstValueFrom(this.httpClient.get(this.API_URL));
