@@ -11,6 +11,16 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    .btn_functionality {
+        width: 48px;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--secondary);
+        border-radius: 50%;
+        border: solid 2px var(--midnight);
+    }
 }
 
 .usuarios-container {
@@ -28,7 +38,7 @@
         padding-right: 24px;
         padding-left: 24px;
         display: flex;
-        gap: 24px;   
+        gap: 18px;   
         background-color: white;
     }
 }
