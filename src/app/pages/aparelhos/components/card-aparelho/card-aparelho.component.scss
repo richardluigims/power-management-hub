@@ -17,6 +17,37 @@
     justify-content: space-between;
 }
 
+.btn_on-off {
+    height: 28px;
+    width: 52px;
+    background-color: rgba(var(--turned-off-rgb), 0.25);
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    padding: 3px;
+    border: 1px solid var(--midnight);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+.btn_on-off::after {
+    content: '';
+    height: 100%;
+    width: 50%;
+    border-radius: 50%;
+    background-color: var(--turned-off);
+    transform: translate(0px, 0px);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn_on-off.on {
+    background-color: rgba(var(--success-rgb), 0.25);
+}
+
+.btn_on-off.on::after {
+    background-color: var(--success);
+    transform: translate(100%, 0px);
+}
+
 .card-body {
     display: flex;
     flex-direction: column;

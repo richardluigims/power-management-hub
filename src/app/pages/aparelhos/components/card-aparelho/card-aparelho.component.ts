@@ -18,7 +18,9 @@ export class CardAparelhoComponent {
 
   constructor() { }
 
-  togglePowerOnOff() {
+  togglePowerOnOff(event: Event) {
+    let buttonOnOff: any = event.target;
+
     if (!this.isPowerOn) {
       this.formatTime();
 
@@ -38,7 +40,7 @@ export class CardAparelhoComponent {
         this.formatTime();
       }, 60000);
 
-      this.isPowerOn = true;
+      this.isPowerOn = true;      
     }
     else {
       clearInterval(this.countingSeconds);
@@ -50,6 +52,8 @@ export class CardAparelhoComponent {
 
       this.isPowerOn = false;
     }
+
+    buttonOnOff.classList.toggle('on');
   }
 
   formatTime() {
