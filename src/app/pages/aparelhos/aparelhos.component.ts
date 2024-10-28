@@ -44,8 +44,4 @@ export class AparelhosComponent implements OnInit {
       this.usuariosService.setLoggedUserData(loggedUserData);
     })
   }
-
-  togglePowerMode() {
-
-  }
 }
