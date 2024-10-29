@@ -26,7 +26,10 @@
             }
         }
 
-        <button class="btn_on-off" (click)="isPowerOn ? powerOff() : powerOn()"></button>
+        <div class="checkbox-and-btn">
+            <input type="checkbox" [value]="aparelho.id" class="checkbox-input" (change)="onChange($event)">
+            <button class="btn_on-off" (click)="isPowerOn ? powerOff() : powerOn()"></button>
+        </div>
     </div>
 
     <div class="card-body">

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AparelhoEnum } from '../../../../enums/aparelho-enum';
 import { AparelhosControlService } from '../../../../services/aparelhos/aparelhos-control.service';
 import { ComodoEnum } from '../../../../enums/comodo-enum';
@@ -16,11 +16,12 @@ export class CardAparelhoComponent implements AfterViewInit {
   minutos: number = 0;
   segundos: number = 0;
   tempoLigado: string | null = null;
-  // countingSeconds: any = null;
   isPowerOn: boolean = false;
   aparelhoElement: HTMLElement | null = null;
   aparelhoEnum = AparelhoEnum;
   comodoEnum = ComodoEnum;
+
+  @Output() idEmitter = new EventEmitter<any>();
 
   constructor(
     private aparelhosControlService: AparelhosControlService,
@@ -29,8 +30,6 @@ export class CardAparelhoComponent implements AfterViewInit {
 
   ngOnInit(): void {
     let aparelho = this.aparelhosControlService.getAparelho(this.aparelho.id)
-
-    console.log(aparelho);
 
     if (aparelho == null || aparelho == undefined) {
       this.aparelhosControlService.addAparelho(this.aparelho.id);
@@ -53,7 +52,6 @@ export class CardAparelhoComponent implements AfterViewInit {
       this.powerOn();
     }
   }
-
 
   powerOn() {
     this.formatTime();
@@ -88,6 +86,12 @@ export class CardAparelhoComponent implements AfterViewInit {
     this.aparelhosControlService.desligarAparelho(this.aparelho.id);
 
     this.aparelhoElement?.classList.toggle('on');
+  }
+
+  onChange(event: any) {
+    let id = event.target.value;
+
+    this.idEmitter.emit(id);
   }
 
   formatTime() {

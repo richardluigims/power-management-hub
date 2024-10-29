@@ -16,13 +16,15 @@ export class AparelhosService {
     return firstValueFrom(this.httpClient.get(this.API_URL));
   }
 
-  createAparelho(novoDispositivo: any): Promise<any> {
-    return firstValueFrom(this.httpClient.post(this.API_URL, novoDispositivo));
+  createAparelho(novoAparelho: any): Promise<any> {
+    return firstValueFrom(this.httpClient.post(this.API_URL, novoAparelho));
   }
 
-  deleteAparelho(idDispositivo: number): Promise<any> {
-    let url = this.API_URL + "/" + idDispositivo;
+  deleteAparelhos(idAparelhosArray: any[]) {
+    return Promise.all(idAparelhosArray.map((aparelhoId) => {
+      let url = this.API_URL + "/" + aparelhoId;
 
-    return firstValueFrom(this.httpClient.delete(url));
+      return firstValueFrom(this.httpClient.delete(url));
+    }));
   }
 }

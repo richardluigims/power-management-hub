@@ -53,7 +53,6 @@ export class ModalNovoAparelhoComponent implements OnInit, AfterViewInit {
     }
 
     this.aparelhosService.createAparelho(novoAparelho).then((response) => {
-      // let aparelhosRegistrados = this.userDataService.watchLoggedUserData()
       let aparelhosRegistrados = [
         ...this.userDataService.getLoggedUserData().aparelhos,
         response

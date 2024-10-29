@@ -14,7 +14,7 @@
     border-color: rgba(var(--midnight-rgb), 0.4);
     transition: border-color 0.2s;
 
-    * {
+    *:not(.card-header, .checkbox-and-btn, .checkbox-input) {
         opacity: 0.8;
         transition: opacity 0.2s;
     }
@@ -23,6 +23,28 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+        // opacity: 1;
+    }
+
+    .checkbox-and-btn {
+        display: flex;
+        justify-content: end;
+        gap: 8px;
+        height: fit-content;
+        // opacity: 1;
+    }
+
+    .checkbox-input {
+        margin: 0px;
+        transform: scale(1.2);
+        display: none;
+        // opacity: 1;
+    }
+
+    .checkbox-input:checked {
+        margin: 0px;
+        transform: scale(1.2);
+        display: block;
     }
     
     .btn_on-off {
@@ -84,10 +106,18 @@
     }
 }
 
+.card:hover {
+    .checkbox-input {
+        margin: 0px;
+        transform: scale(1.2);
+        display: block;
+    }
+}
+
 .card.on {
     border-color: rgba(var(--midnight-rgb), 1);
 
-    * {
+    *:not(.card-header, .checkbox-and-btn, .checkbox-input) {
         opacity: 1;
     }
 
