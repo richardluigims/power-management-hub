@@ -34,7 +34,7 @@ export class UsuariosService {
 
   deleteUsuarios(idUsuariosArray: any[]): Promise<any> {
     return Promise.all(idUsuariosArray.map((idUsuario) => {
-      let url = this.API_URL + "usuarios/" + idUsuario;
+      let url = this.API_URL + "/" + idUsuario;
 
       return firstValueFrom(this.httpClient.delete(url));
     }))

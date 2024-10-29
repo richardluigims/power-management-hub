@@ -16,6 +16,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   usuarios: any;
   loggedUser: any;
   userDataSubscription: any;
+  usuariosSelecionados = new Array<any>();
+  showSelectOptions: boolean = false;
 
   constructor(
     private userDataService: UserDataService,
@@ -72,7 +74,42 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   }
 
-  selecionarUsuarios() {
+  displaySelectOptions() {
+    document.querySelector("#usuarios-container")?.classList.add('show-select-options');
 
+    this.showSelectOptions = true;
+  }
+
+  hideSelectOptions() {
+    document.querySelector("#usuarios-container")?.classList.remove('show-select-options');
+
+    this.showSelectOptions = false;
+    this.usuariosSelecionados = new Array<any>();
+  }
+
+  onChange(event: any) {
+    let usuarioId = event.target.value;
+
+    if (this.usuariosSelecionados.includes(usuarioId)) {
+      this.usuariosSelecionados = this.usuariosSelecionados.filter(id => id!== usuarioId);
+    }
+    else {
+      this.usuariosSelecionados.push(usuarioId);
+    }
+  }
+  
+  excluirUsuarios() {
+    if (this.usuariosSelecionados.length == 0) {
+      return;
+    }
+
+    this.usuariosService.deleteUsuarios(this.usuariosSelecionados).then((response) => {
+      let usuarios = this.userDataService.getLoggedUserData().usuarios;
+      
+      usuarios = usuarios.filter((usuario: any) => !this.usuariosSelecionados.includes(usuario.id));
+
+      this.userDataService.setLoggedUserData({ usuarios: usuarios });
+      this.hideSelectOptions();
+    });
   }
 }

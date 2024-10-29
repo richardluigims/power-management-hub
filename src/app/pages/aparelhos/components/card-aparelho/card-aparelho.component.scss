@@ -39,8 +39,8 @@
     }
 
     .checkbox-input:checked {
-        margin: 0px;
-        transform: scale(1.2);
+        // margin: 0px;
+        // transform: scale(1.2);
         display: block;
     }
     
@@ -104,9 +104,7 @@
 }
 
 .card:hover {
-    .checkbox-input {
-        margin: 0px;
-        transform: scale(1.2);
+    .checkbox-input {        
         display: block;
     }
 }
