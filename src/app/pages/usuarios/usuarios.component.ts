@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserDataService } from '../../services/usuarios/user-data.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
+import { ModalNovoUsuarioControlService } from './components/modal-novo-usuario/modal-novo-usuario-control.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,7 +23,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   constructor(
     private userDataService: UserDataService,
     private usuariosService: UsuariosService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private modalControl: ModalNovoUsuarioControlService
   ) { }
 
   ngOnInit(): void {
@@ -70,8 +72,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     })
   }
 
-  criarUsuario() {
-
+  showModalNovoUsuario() {
+    this.modalControl.toggleModalNovoUsuario();
   }
 
   displaySelectOptions() {

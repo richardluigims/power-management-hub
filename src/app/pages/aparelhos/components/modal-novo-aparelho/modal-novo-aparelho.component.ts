@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ModalNovoAparelhoControlService } from './modal-novo-aparelho-control.service';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AparelhosService } from '../../../../services/aparelhos/aparelhos.service';
 import { UserDataService } from '../../../../services/usuarios/user-data.service';
 
@@ -32,7 +32,7 @@ export class ModalNovoAparelhoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.modal = document.querySelector("#modal");
+    this.modal = document.querySelector("#modal-novo-aparelho");
 
     this.controlSubscription = this.modalControlService.getModalNovoAparelhoControl().subscribe((modalState) => {
       modalState ?
@@ -41,7 +41,7 @@ export class ModalNovoAparelhoComponent implements OnInit, AfterViewInit {
     })
   }
 
-  async criarAparelho() {
+  criarAparelho() {
     if (this.novoAparelhoForm.invalid) {
       return;
     }
