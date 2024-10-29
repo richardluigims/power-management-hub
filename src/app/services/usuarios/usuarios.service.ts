@@ -32,9 +32,11 @@ export class UsuariosService {
     return firstValueFrom(this.httpClient.post(this.API_URL, novoUsuario));
   }
 
-  deleteUsuario(idUsuario: number): Promise<any> {
-    let url = this.API_URL + "usuarios/" + idUsuario;
+  deleteUsuarios(idUsuariosArray: any[]): Promise<any> {
+    return Promise.all(idUsuariosArray.map((idUsuario) => {
+      let url = this.API_URL + "usuarios/" + idUsuario;
 
-    return firstValueFrom(this.httpClient.delete(url));
+      return firstValueFrom(this.httpClient.delete(url));
+    }))
   }
 }

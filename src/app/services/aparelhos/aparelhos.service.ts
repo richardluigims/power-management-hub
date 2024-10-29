@@ -20,7 +20,7 @@ export class AparelhosService {
     return firstValueFrom(this.httpClient.post(this.API_URL, novoAparelho));
   }
 
-  deleteAparelhos(idAparelhosArray: any[]) {
+  deleteAparelhos(idAparelhosArray: any[]): Promise<any> {
     return Promise.all(idAparelhosArray.map((aparelhoId) => {
       let url = this.API_URL + "/" + aparelhoId;
 

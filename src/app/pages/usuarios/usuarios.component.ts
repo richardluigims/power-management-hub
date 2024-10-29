@@ -33,6 +33,18 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
       this.usuarios = data.usuarios;
       this.loggedUser = data.loggedUser;
+
+      if (this.usuarios) {
+        this.usuarios.sort((a: any, b: any) => {
+          if (a.id == this.loggedUser.id)
+            return -1;
+  
+          if (b.id == this.loggedUser.id)
+            return 1;
+  
+          return 0;
+        })
+      }      
     });
 
     if (this.usuarios == null) {

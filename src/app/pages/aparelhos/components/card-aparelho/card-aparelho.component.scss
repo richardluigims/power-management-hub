@@ -23,7 +23,6 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
-        // opacity: 1;
     }
 
     .checkbox-and-btn {
@@ -31,14 +30,12 @@
         justify-content: end;
         gap: 8px;
         height: fit-content;
-        // opacity: 1;
     }
 
     .checkbox-input {
         margin: 0px;
         transform: scale(1.2);
         display: none;
-        // opacity: 1;
     }
 
     .checkbox-input:checked {
@@ -132,7 +129,7 @@
     }
 
     .lamp-icon path {
-        fill: var(--lamp);
+        fill: rgba(var(--lamp-rgb), 0.8);
     }
 
     .fan-icon svg {
@@ -141,12 +138,10 @@
 
     .fan-icon path {
         fill: var(--fan);
-        transition: fill 0.2s;
     }
 
     .television-icon path {
-        fill: var(--television);
-        transition: fill 0.2s;
+        fill: rgba(var(--television-rgb), 0.85);
     }
 }
 
