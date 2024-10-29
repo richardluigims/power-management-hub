@@ -87,6 +87,10 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
     this.showSelectOptions = false;
     this.usuariosSelecionados = new Array<any>();
+
+    document.querySelectorAll(".checkbox-input").forEach((checkboxInput: any) => {
+      checkboxInput.checked = false;
+    })
   }
 
   onChange(event: any) {
