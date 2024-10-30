@@ -79,8 +79,4 @@ export class AparelhosControlService {
     aparelho.intervalId = null;
     aparelho.behaviorSubject = null;
   }
-
-  getAparelhosControlArray() {
-    return this.aparelhosControlArray;
-  }
 }
