@@ -2,6 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Outpu
 import { AparelhoEnum } from '../../../../enums/aparelho-enum';
 import { AparelhosControlService } from '../../../../services/aparelhos/aparelhos-control.service';
 import { ComodoEnum } from '../../../../enums/comodo-enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-card-aparelho',
@@ -12,6 +13,8 @@ import { ComodoEnum } from '../../../../enums/comodo-enum';
 })
 export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() aparelho: any;
+  @Output() idEmitter = new EventEmitter<any>();
+
   minutos: number = 0;
   segundos: number = 0;
   tempoLigado: string | null = null;
@@ -19,9 +22,7 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
   aparelhoElement: HTMLElement | null = null;
   aparelhoEnum = AparelhoEnum;
   comodoEnum = ComodoEnum;
-  tempoLigadoSubscription: any;
-
-  @Output() idEmitter = new EventEmitter<any>();
+  tempoLigadoSubscription: Subscription | null = null;
 
   constructor(
     private aparelhosControlService: AparelhosControlService
@@ -30,17 +31,11 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     let aparelho = this.aparelhosControlService.getAparelho(this.aparelho.id)
 
-    if (aparelho == null || aparelho == undefined) {
+    if (!aparelho) {
       this.aparelhosControlService.addAparelho(this.aparelho.id);
     }
     else {
-      this.isPowerOn = aparelho.isPowerOn;
-      this.minutos = aparelho.minutos;
-      this.segundos = aparelho.segundos;
-
-      if (this.isPowerOn) {
-        this.formatTime();
-      }
+      this.loadAparelhoData(aparelho);
     }
   }
 
@@ -50,7 +45,7 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isPowerOn) {
       this.powerOn();
     }
-  }  
+  }
 
   powerOn() {
     this.formatTime();
@@ -64,7 +59,7 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.isPowerOn = true;
 
-    this.aparelhoElement?.classList.toggle('on');
+    this.toggleAparelhoPowerStyle();
   }
 
   ngOnDestroy(): void {
@@ -74,14 +69,28 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   powerOff() {
-    this.segundos = 0;
-    this.minutos = 0;
-    this.tempoLigado = null;
+    this.resetTempoLigado();
 
     this.isPowerOn = false;
     this.aparelhosControlService.desligarAparelho(this.aparelho.id);
 
-    this.aparelhoElement?.classList.toggle('on');
+    this.toggleAparelhoPowerStyle();
+  }
+
+  resetTempoLigado() {
+    this.segundos = 0;
+    this.minutos = 0;
+    this.tempoLigado = null;
+  }
+
+  loadAparelhoData(aparelho: any) {
+    this.isPowerOn = aparelho.isPowerOn;
+    this.minutos = aparelho.minutos;
+    this.segundos = aparelho.segundos;
+
+    if (this.isPowerOn) {
+      this.formatTime();
+    }
   }
 
   formatTime() {
@@ -95,5 +104,9 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
     let id = event.target.value;
 
     this.idEmitter.emit(id);
+  }
+
+  toggleAparelhoPowerStyle() {
+    this.aparelhoElement?.classList.toggle('on');
   }
 }
