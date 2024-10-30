@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AparelhoEnum } from '../../../../enums/aparelho-enum';
 import { AparelhosControlService } from '../../../../services/aparelhos/aparelhos-control.service';
 import { ComodoEnum } from '../../../../enums/comodo-enum';
-import { IntervalService } from '../../../../services/interval/interval.service';
 
 @Component({
   selector: 'app-card-aparelho',
@@ -11,7 +10,7 @@ import { IntervalService } from '../../../../services/interval/interval.service'
   templateUrl: './card-aparelho.component.html',
   styleUrl: './card-aparelho.component.scss'
 })
-export class CardAparelhoComponent implements AfterViewInit {
+export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() aparelho: any;
   minutos: number = 0;
   segundos: number = 0;
@@ -20,12 +19,12 @@ export class CardAparelhoComponent implements AfterViewInit {
   aparelhoElement: HTMLElement | null = null;
   aparelhoEnum = AparelhoEnum;
   comodoEnum = ComodoEnum;
+  tempoLigadoSubscription: any;
 
   @Output() idEmitter = new EventEmitter<any>();
 
   constructor(
-    private aparelhosControlService: AparelhosControlService,
-    private intervalService: IntervalService
+    private aparelhosControlService: AparelhosControlService
   ) { }
 
   ngOnInit(): void {
@@ -51,33 +50,30 @@ export class CardAparelhoComponent implements AfterViewInit {
     if (this.isPowerOn) {
       this.powerOn();
     }
-  }
+  }  
 
   powerOn() {
     this.formatTime();
-    this.aparelhosControlService.ligarAparelho(this.aparelho.id);
-
-    this.intervalService.startInterval(this.aparelho.id, 1000, () => {
-      this.segundos++;
-
-      if (this.segundos == 60) {
-        this.segundos = 0;
-        this.minutos++;
-      }
+    
+    this.tempoLigadoSubscription = this.aparelhosControlService.ligarAparelho(this.aparelho.id).subscribe((time: any) => {
+      this.segundos = time.segundos;
+      this.minutos = time.minutos;
 
       this.formatTime();
-
-      this.aparelhosControlService.setTempoLigado(this.aparelho.id, this.minutos, this.segundos);
-    })
+    });
 
     this.isPowerOn = true;
 
     this.aparelhoElement?.classList.toggle('on');
   }
 
-  powerOff() {
-    this.intervalService.stopInterval(this.aparelho.id);
+  ngOnDestroy(): void {
+    if (this.tempoLigadoSubscription) {
+      this.tempoLigadoSubscription.unsubscribe();
+    }
+  }
 
+  powerOff() {
     this.segundos = 0;
     this.minutos = 0;
     this.tempoLigado = null;
@@ -88,16 +84,16 @@ export class CardAparelhoComponent implements AfterViewInit {
     this.aparelhoElement?.classList.toggle('on');
   }
 
-  onChange(event: any) {
-    let id = event.target.value;
-
-    this.idEmitter.emit(id);
-  }
-
   formatTime() {
     let formatedMinutes = this.minutos >= 10 ? this.minutos : "0" + this.minutos;
     let formatedSeconds = this.segundos >= 10 ? this.segundos : "0" + this.segundos;
 
     this.tempoLigado = formatedMinutes + ":" + formatedSeconds;
+  }
+
+  onChange(event: any) {
+    let id = event.target.value;
+
+    this.idEmitter.emit(id);
   }
 }
