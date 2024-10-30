@@ -43,8 +43,6 @@ export class AparelhosControlService {
       aparelho.behaviorSubject = behaviorSubject;
 
       let intervalId = setInterval(() => {
-        console.log("incrementando");
-        console.log(aparelhoId);
         this.incrementarTempo(aparelho);
       }, 1000);
 
