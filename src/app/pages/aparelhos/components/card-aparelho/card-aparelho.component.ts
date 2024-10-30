@@ -63,9 +63,7 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.tempoLigadoSubscription) {
-      this.tempoLigadoSubscription.unsubscribe();
-    }
+    this.tempoLigadoSubscription?.unsubscribe();
   }
 
   powerOff() {

@@ -3,6 +3,7 @@ import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { CardAparelhoComponent } from './components/card-aparelho/card-aparelho.component';
 import { UserDataService } from '../../services/usuarios/user-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-aparelhos',
@@ -15,8 +16,8 @@ import { UserDataService } from '../../services/usuarios/user-data.service';
 })
 export class AparelhosComponent implements OnInit, OnDestroy {
 
-  aparelhos: any = null;
-  userDataSubscription: any;
+  aparelhos: any[] = [];
+  userDataSubscription: Subscription | null = null;
   aparelhosSelecionados = new Array<any>();
 
   constructor(
@@ -36,37 +37,30 @@ export class AparelhosComponent implements OnInit, OnDestroy {
       this.aparelhos = data.aparelhos;
     });
     
-    if (this.aparelhos == null) {
+    if (this.aparelhos.length == 0) {
       this.getAparelhos();
     }
   }
 
   ngOnDestroy(): void {
-      this.userDataSubscription.unsubscribe();
+      this.userDataSubscription?.unsubscribe();
   }
 
   getAparelhos() {
     this.aparelhosService.getAparelhos().then((result) => {
       this.aparelhos = result;
-
       this.userDataService.setLoggedUserData({ aparelhos: this.aparelhos});
     })
   }
 
-  receiveMessage(aparelhoId: any) {
-    if (this.aparelhosSelecionados.includes(aparelhoId)) {
-      this.aparelhosSelecionados = this.aparelhosSelecionados.filter(id => id!== aparelhoId);
-    }
-    else {
-      this.aparelhosSelecionados.push(aparelhoId);
-    }
+  onSelectAparelho(aparelhoId: any) {
+    let index = this.aparelhosSelecionados.indexOf(aparelhoId);
     
-    if (this.aparelhosSelecionados.length > 0) {
-      document.querySelector("#btn_excluir-aparelhos")?.classList.add('show');
-    }
-    else {
-      document.querySelector("#btn_excluir-aparelhos")?.classList.remove('show');
-    }
+    (index > -1) ?
+      this.aparelhosSelecionados.splice(index, 1) :
+      this.aparelhosSelecionados.push(aparelhoId);
+
+    this.toggleExcluirButtton();
   }
 
   excluirAparelhos() {
@@ -74,14 +68,17 @@ export class AparelhosComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.aparelhosService.deleteAparelhos(this.aparelhosSelecionados).then((response) => {
-      let aparelhos = this.userDataService.getLoggedUserData().aparelhos;
-      
-      aparelhos = aparelhos.filter((aparelho: any) => !this.aparelhosSelecionados.includes(aparelho.id));
+    this.aparelhosService.deleteAparelhos(this.aparelhosSelecionados).then(() => {
+      let novosAparelhos = this.aparelhos.filter(aparelho => !this.aparelhosSelecionados.includes(aparelho.id));
 
-      this.userDataService.setLoggedUserData({ aparelhos: aparelhos });
+      this.userDataService.setLoggedUserData({ aparelhos: novosAparelhos });
       this.aparelhosSelecionados = new Array<any>();
-      document.querySelector("#btn_excluir-aparelhos")?.classList.remove('show');
+      this.toggleExcluirButtton();
     });
+  }
+
+  toggleExcluirButtton() {
+    let buttonExcluir = document.querySelector("#btn_excluir-aparelhos");
+    buttonExcluir?.classList.toggle('show', this.aparelhosSelecionados.length > 0);
   }
 }
