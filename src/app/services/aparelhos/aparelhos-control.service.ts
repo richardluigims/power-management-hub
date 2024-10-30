@@ -27,61 +27,57 @@ export class AparelhosControlService {
   }
 
   ligarAparelho(aparelhoId: any): Observable<any> {
-    let index = this.aparelhosControlArray.findIndex((aparelho: any) => aparelho.id == aparelhoId);
+    let aparelho = this.getAparelho(aparelhoId);
 
-    this.aparelhosControlArray[index].isPowerOn = true;
-    
-    if (this.aparelhosControlArray[index].intervalId != null) {
-      return this.aparelhosControlArray[index].behaviorSubject.asObservable();
+    aparelho.isPowerOn = true;
+
+    if (aparelho.intervalId != null) {
+      return aparelho.behaviorSubject.asObservable();
     }
-
-    let behaviorSubject = new BehaviorSubject<any>({
-      minutos: this.aparelhosControlArray[index].minutos,
-      segundos: this.aparelhosControlArray[index].segundos
-    });
-
-    let intervalId = setInterval(() => {
-      this.aparelhosControlArray[index].segundos++;
-
-      if (this.aparelhosControlArray[index].segundos == 60) {
-        this.aparelhosControlArray[index].segundos = 0;
-        this.aparelhosControlArray[index].minutos++;
-      }
-
-      behaviorSubject.next({
-        minutos: this.aparelhosControlArray[index].minutos,
-        segundos: this.aparelhosControlArray[index].segundos
+    else {
+      let behaviorSubject = new BehaviorSubject<any>({
+        minutos: 0,
+        segundos: 0
       });
-    }, 1000);
 
-    this.aparelhosControlArray[index].behaviorSubject = behaviorSubject;
-    this.aparelhosControlArray[index].intervalId = intervalId;
+      aparelho.behaviorSubject = behaviorSubject;
 
-    return behaviorSubject.asObservable();
+      let intervalId = setInterval(() => {
+        console.log("incrementando");
+        console.log(aparelhoId);
+        this.incrementarTempo(aparelho);
+      }, 1000);
+
+      aparelho.intervalId = intervalId;
+
+      return behaviorSubject.asObservable();
+    }
   }
 
-  desligarAparelho(aparelhoId: number) {
-    let index = this.aparelhosControlArray.findIndex((aparelho: any) => aparelho.id == aparelhoId);
+  incrementarTempo(aparelho: any) {
+    aparelho.segundos++;
 
-    clearInterval(this.aparelhosControlArray[index].intervalId);
-
-    let aparelho = {
-      id: aparelhoId,
-      isPowerOn: false,
-      minutos: 0,
-      segundos: 0,
-      behaviorSubject: null,
-      intervalId: null
+    if (aparelho.segundos == 60) {
+      aparelho.segundos = 0;
+      aparelho.minutos++;
     }
 
-    this.aparelhosControlArray[index] = aparelho;
+    aparelho.behaviorSubject.next({
+      minutos: aparelho.minutos,
+      segundos: aparelho.segundos
+    })
   }
 
-  setTempoLigado(aparelhoId: number, minutos: number, segundos: number) {
-    let index = this.aparelhosControlArray.findIndex((aparelho: any) => aparelho.id == aparelhoId);
+  desligarAparelho(aparelhoId: any) {
+    let aparelho = this.getAparelho(aparelhoId);
 
-    this.aparelhosControlArray[index].minutos = minutos;
-    this.aparelhosControlArray[index].segundos = segundos;
+    clearInterval(aparelho.intervalId);
+
+    aparelho.isPowerOn = false;
+    aparelho.minutos = 0;
+    aparelho.segundos = 0;
+    aparelho.intervalId = null;
+    aparelho.behaviorSubject = null;
   }
 
   getAparelhosControlArray() {
