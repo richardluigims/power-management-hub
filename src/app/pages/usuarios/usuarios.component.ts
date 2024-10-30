@@ -3,6 +3,7 @@ import { UserDataService } from '../../services/usuarios/user-data.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { ModalNovoUsuarioControlService } from './components/modal-novo-usuario/modal-novo-usuario-control.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-usuarios',
@@ -14,9 +15,9 @@ import { ModalNovoUsuarioControlService } from './components/modal-novo-usuario/
 export class UsuariosComponent implements OnInit, OnDestroy {
 
   loggedUserData: any;
-  usuarios: any;
+  usuarios = new Array<any>();
   loggedUser: any;
-  userDataSubscription: any;
+  userDataSubscription: Subscription | null =null;
   usuariosSelecionados = new Array<any>();
   showSelectOptions: boolean = false;
 
@@ -28,17 +29,13 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    let userId = localStorage.getItem('userId');
-
-    if (userId) {
-      this.authService.markUserAsLoggedIn();
-    }
+    this.checkIfUserIsLoggedIn();
 
     this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
-      this.usuarios = data.usuarios;
+      this.usuarios = data.usuarios || [];
       this.loggedUser = data.loggedUser;
 
-      if (this.usuarios) {
+      if (this.usuarios && this.loggedUser) {
         this.usuarios.sort((a: any, b: any) => {
           if (a.id == this.loggedUser.id)
             return -1;
@@ -51,24 +48,28 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       }      
     });
 
-    if (this.usuarios == null) {
+    if (this.usuarios.length == 0) {
       this.getUsuarios();
     }
   }
 
+  checkIfUserIsLoggedIn(): void {
+    let userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.authService.markUserAsLoggedIn();
+    }
+  }
+
   ngOnDestroy(): void {
-    this.userDataSubscription.unsubscribe();
+    this.userDataSubscription?.unsubscribe();
   }
 
   getUsuarios() {
     this.usuariosService.getUsuarios().then((result) => {
       this.usuarios = result;
 
-      let loggedUserData = {
-        usuarios: this.usuarios
-      }
-
-      this.userDataService.setLoggedUserData(loggedUserData);
+      this.userDataService.setLoggedUserData({ usuarios: this.usuarios });
     })
   }
 
@@ -76,32 +77,27 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.modalControl.toggleModalNovoUsuario();
   }
 
-  displaySelectOptions() {
-    document.querySelector("#usuarios-container")?.classList.add('show-select-options');
+  toggleSelectOptions() {
+    this.showSelectOptions = !this.showSelectOptions;
 
-    this.showSelectOptions = true;
-  }
+    document.querySelector("#usuarios-container")?.classList.toggle('show-select-options');
 
-  hideSelectOptions() {
-    document.querySelector("#usuarios-container")?.classList.remove('show-select-options');
+    if (!this.showSelectOptions) {
+      this.usuariosSelecionados = new Array<any>();
 
-    this.showSelectOptions = false;
-    this.usuariosSelecionados = new Array<any>();
-
-    document.querySelectorAll(".checkbox-input").forEach((checkboxInput: any) => {
-      checkboxInput.checked = false;
-    })
+      document.querySelectorAll(".checkbox-input").forEach((checkboxInput: any) => {
+        checkboxInput.checked = false;
+      })
+    }
   }
 
   onChange(event: any) {
     let usuarioId = event.target.value;
+    let index = this.usuariosSelecionados.indexOf(usuarioId);
 
-    if (this.usuariosSelecionados.includes(usuarioId)) {
-      this.usuariosSelecionados = this.usuariosSelecionados.filter(id => id!== usuarioId);
-    }
-    else {
+    (index > -1) ?
+      this.usuariosSelecionados.splice(index, 1) :
       this.usuariosSelecionados.push(usuarioId);
-    }
   }
   
   excluirUsuarios() {
@@ -115,7 +111,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       usuarios = usuarios.filter((usuario: any) => !this.usuariosSelecionados.includes(usuario.id));
 
       this.userDataService.setLoggedUserData({ usuarios: usuarios });
-      this.hideSelectOptions();
+      this.toggleSelectOptions();
     });
   }
 }

@@ -26,24 +26,5 @@
       "palavraPasse": "14032002"
     }
   ],
-  "aparelhos": [
-    {
-      "id": "d41b",
-      "tipo": "1",
-      "descricao": "Lâmpada",
-      "comodo": "3"
-    },
-    {
-      "id": "338a",
-      "tipo": "3",
-      "descricao": "TV",
-      "comodo": "1"
-    },
-    {
-      "id": "dea4",
-      "tipo": "2",
-      "descricao": "Teste",
-      "comodo": "1"
-    }
-  ]
+  "aparelhos": []
 }

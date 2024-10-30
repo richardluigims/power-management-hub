@@ -1,12 +1,12 @@
 <section class="container" id="usuarios-container">
     <div class="functionalities-container">
         @if(showSelectOptions) {
-            <button class="btn_hide-select-options" (click)="hideSelectOptions()">
+            <button class="btn_hide-select-options" (click)="toggleSelectOptions()">
                 Cancelar
             </button>
         }
         @else {
-            <button class="btn_functionality" (click)="displaySelectOptions()">
+            <button class="btn_functionality" (click)="toggleSelectOptions()">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-outside-1_130_150" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20" fill="black">
                         <rect fill="white" width="20" height="20"/>

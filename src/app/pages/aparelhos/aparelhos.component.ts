@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class AparelhosComponent implements OnInit, OnDestroy {
 
-  aparelhos: any[] = [];
+  aparelhos = new Array<any>();
   userDataSubscription: Subscription | null = null;
   aparelhosSelecionados = new Array<any>();
 
@@ -27,18 +27,22 @@ export class AparelhosComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    let userId = localStorage.getItem('userId');
-
-    if (userId) {
-      this.authService.markUserAsLoggedIn();
-    }
+    this.checkIfUserIsLoggedIn();
 
     this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
-      this.aparelhos = data.aparelhos;
+      this.aparelhos = data.aparelhos || [];
     });
     
     if (this.aparelhos.length == 0) {
       this.getAparelhos();
+    }
+  }
+
+  checkIfUserIsLoggedIn(): void {
+    let userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.authService.markUserAsLoggedIn();
     }
   }
 
