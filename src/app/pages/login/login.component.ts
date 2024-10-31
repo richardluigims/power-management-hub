@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
-import { UsuariosService } from '../../services/usuarios/usuarios.service';
-import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
 import { UserDataService } from '../../services/usuarios/user-data.service';
 
 @Component({
