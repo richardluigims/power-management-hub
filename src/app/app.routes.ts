@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { childRouteGuard, routeGuard } from './RouteGuard/route-guard.guard';
 
 export const routes: Routes = [
     {
@@ -7,15 +8,23 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/login',
-        pathMatch: 'full'
-    },
-    {
-        path: 'aparelhos',
-        loadComponent: () => import("./pages/aparelhos/aparelhos.component").then(c => c.AparelhosComponent)
-    },
-    {
-        path: 'usuarios',
-        loadComponent: () => import("./pages/usuarios/usuarios.component").then(c => c.UsuariosComponent)
+        loadComponent: () => import("./pages/navigation/navigation.component").then(c => c.NavigationComponent),
+        canActivate: [routeGuard],
+        canActivateChild: [childRouteGuard],
+        children: [
+            {
+                path: '',
+                redirectTo: 'aparelhos',
+                pathMatch: 'full'
+            },
+            {
+                path: 'aparelhos',
+                loadComponent: () => import("./pages/aparelhos/aparelhos.component").then(c => c.AparelhosComponent)
+            },
+            {
+                path: 'usuarios',
+                loadComponent: () => import("./pages/usuarios/usuarios.component").then(c => c.UsuariosComponent)
+            }
+        ]
     }
 ];

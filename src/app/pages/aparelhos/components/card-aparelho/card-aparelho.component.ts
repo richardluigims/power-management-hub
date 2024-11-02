@@ -98,7 +98,7 @@ export class CardAparelhoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tempoLigado = formatedMinutes + ":" + formatedSeconds;
   }
 
-  onChange(event: any) {
+  emitIdToParent(event: any) {
     let id = event.target.value;
 
     this.idEmitter.emit(id);

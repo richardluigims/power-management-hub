@@ -23,6 +23,7 @@
         display: flex;
         width: 100%;
         justify-content: space-between;
+        min-height: 53px;
     }
 
     .checkbox-and-btn {
@@ -67,19 +68,34 @@
         transition: transform 0.2s, background-color 0.2s;
     }
 
-    .lamp-icon path {
-        fill: rgba(var(--turned-off-rgb), 0.5);
-        transition: fill 0.2s;
+    .lamp-icon {
+        svg {
+            width: 33px;
+        }
+        path {
+            fill: rgba(var(--turned-off-rgb), 0.5);
+            transition: fill 0.2s;
+        }
     }
 
-    .fan-icon path {
-        fill: rgba(var(--turned-off-rgb), 0.5);
+    .fan-icon {
+        svg {
+            width: 40px;
+        }
+        path {
+            fill: rgba(var(--turned-off-rgb), 0.5);
         transition: fill 0.2s;
+        }
     }
 
-    .television-icon path {
-        fill: rgba(var(--turned-off-rgb), 0.5);
-        transition: fill 0.2s;
+    .television-icon {
+        svg {
+            width: 40px;
+        }
+        path {
+            fill: rgba(var(--turned-off-rgb), 0.5);
+            transition: fill 0.2s;
+        }
     }
     
     .card-body {
@@ -126,20 +142,25 @@
         transform: translate(100%, 0px);
     }
 
-    .lamp-icon path {
-        fill: rgba(var(--lamp-rgb), 0.8);
+    .lamp-icon {
+        path {
+            fill: rgba(var(--lamp-rgb), 0.8);
+        }
     }
 
-    .fan-icon svg {
-        animation: spin 0.5s infinite linear;
+    .fan-icon {
+        svg {
+            animation: spin 0.5s infinite linear;
+        }
+        path {
+            fill: var(--fan);
+        }
     }
 
-    .fan-icon path {
-        fill: var(--fan);
-    }
-
-    .television-icon path {
-        fill: rgba(var(--television-rgb), 0.85);
+    .television-icon {
+        path {
+            fill: rgba(var(--television-rgb), 0.85);
+        }
     }
 }
 

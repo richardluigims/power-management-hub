@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserDataService } from '../../services/usuarios/user-data.service';
 import { UsuariosService } from '../../services/usuarios/usuarios.service';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { ModalNovoUsuarioControlService } from './components/modal-novo-usuario/modal-novo-usuario-control.service';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +12,6 @@ import { Subscription } from 'rxjs';
   styleUrl: './usuarios.component.scss'
 })
 export class UsuariosComponent implements OnInit, OnDestroy {
-
   loggedUserData: any;
   usuarios = new Array<any>();
   loggedUser: any;
@@ -24,41 +22,29 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   constructor(
     private userDataService: UserDataService,
     private usuariosService: UsuariosService,
-    private authService: AuthenticationService,
     private modalControl: ModalNovoUsuarioControlService
   ) { }
 
   ngOnInit(): void {
-    this.checkIfUserIsLoggedIn();
-
     this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
       this.usuarios = data.usuarios || [];
       this.loggedUser = data.loggedUser;
-
-      if (this.usuarios && this.loggedUser) {
-        this.usuarios.sort((a: any, b: any) => {
-          if (a.id == this.loggedUser.id)
-            return -1;
-  
-          if (b.id == this.loggedUser.id)
-            return 1;
-  
-          return 0;
-        })
-      }      
     });
 
-    if (this.usuarios.length == 0) {
+    if (this.usuarios.length > 0) {
+      this.usuarios.sort((a: any, b: any) => {
+        if (a.id == this.loggedUser.id)
+          return -1;
+
+        if (b.id == this.loggedUser.id)
+          return 1;
+
+        return 0;
+      })
+    }
+    else {
       this.getUsuarios();
-    }
-  }
-
-  checkIfUserIsLoggedIn(): void {
-    let userId = localStorage.getItem('userId');
-
-    if (userId) {
-      this.authService.markUserAsLoggedIn();
-    }
+    }    
   }
 
   ngOnDestroy(): void {

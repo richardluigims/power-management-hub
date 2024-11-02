@@ -1,20 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
-import { UserDataService } from '../usuarios/user-data.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private API_URL = 'http://localhost:3000/';
-  private isUserLogged: boolean = false;
-
-  private loginSubject = new BehaviorSubject<boolean>(false);
 
   constructor(
     private httpClient: HttpClient,
-    private userDataService: UserDataService
   ) { }
 
   login(palavraPasse: any): Promise<any> {
@@ -30,21 +25,5 @@ export class AuthenticationService {
 
       return result;
     });
-  }
-
-  markUserAsLoggedIn() {
-    this.isUserLogged = true;
-    this.loginSubject.next(this.isUserLogged);
-  }
-
-  markUserAsLoggedOut() {
-    this.isUserLogged = false;
-
-    this.userDataService.removeUserData();
-    this.loginSubject.next(this.isUserLogged);
-  }
-
-  watchingUserLogState(): Observable<boolean> {
-    return this.loginSubject.asObservable();
   }
 }
