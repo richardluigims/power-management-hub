@@ -12,25 +12,6 @@ import { ModalNovoUsuarioComponent } from "./pages/usuarios/components/modal-nov
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
   
-  isUserLoggedIn: boolean = false;
-  userLogObservable: any;
-
-  constructor(
-    private authService: AuthenticationService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.userLogObservable = this.authService.watchingUserLogState().subscribe((userLogState) => {
-      this.isUserLoggedIn = userLogState;
-      this.changeDetectorRef.detectChanges();
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.userLogObservable.unsubscribe();
-  }
 }

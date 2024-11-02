@@ -51,9 +51,7 @@ export class LoginComponent implements OnInit {
 
         this.userDataService.setLoggedUserData({ loggedUser: usuario });
 
-        this.router.navigateByUrl("/aparelhos").then(() => {
-          this.authService.markUserAsLoggedIn();
-        });
+        this.router.navigateByUrl("/aparelhos");
       }
       else {
         alert("Palavra-passe inválida.");

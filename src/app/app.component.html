@@ -1,13 +1,5 @@
 <div class="fixed-width-container">
-    <div class="fixed-width-content">
-        @if (isUserLoggedIn) {
-            <app-header></app-header>
-        }
-
-        <main>
-            <router-outlet />
-        </main>
-    </div>
+    <router-outlet></router-outlet>
 </div>
 
 <app-modal-novo-aparelho></app-modal-novo-aparelho>

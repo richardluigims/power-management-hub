@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AparelhosService } from '../../services/aparelhos/aparelhos.service';
-import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { CardAparelhoComponent } from './components/card-aparelho/card-aparelho.component';
 import { UserDataService } from '../../services/usuarios/user-data.service';
 import { Subscription } from 'rxjs';
@@ -23,26 +22,15 @@ export class AparelhosComponent implements OnInit, OnDestroy {
   constructor(
     private aparelhosService: AparelhosService,
     private userDataService: UserDataService,
-    private authService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
-    this.checkIfUserIsLoggedIn();
-
     this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
       this.aparelhos = data.aparelhos || [];
     });
     
     if (this.aparelhos.length == 0) {
       this.getAparelhos();
-    }
-  }
-
-  checkIfUserIsLoggedIn(): void {
-    let userId = localStorage.getItem('userId');
-
-    if (userId) {
-      this.authService.markUserAsLoggedIn();
     }
   }
 

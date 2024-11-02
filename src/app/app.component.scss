@@ -6,14 +6,3 @@
     align-items: center;
     background-color: var(--background-medium);
 }
-
-.fixed-width-content {
-    width: 1200px;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-
-main {
-    flex-grow: 1;
-}
