@@ -26,5 +26,18 @@
       "palavraPasse": "14032002"
     }
   ],
-  "aparelhos": []
+  "aparelhos": [
+    {
+      "id": "6588",
+      "tipo": "2",
+      "descricao": "Ventilador",
+      "comodo": "1"
+    },
+    {
+      "id": "9617",
+      "tipo": "1",
+      "descricao": "Lâmpada",
+      "comodo": "2"
+    }
+  ]
 }

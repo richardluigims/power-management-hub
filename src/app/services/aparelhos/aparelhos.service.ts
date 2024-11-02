@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class AparelhosService {
-  private API_URL = 'http://localhost:3000/aparelhos';  // URL to web api
+  private API_URL = 'http://localhost:3000/aparelhos';
 
   constructor(
     private httpClient: HttpClient
