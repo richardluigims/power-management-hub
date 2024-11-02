@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
         this.userDataService.setLoggedUserData({ loggedUser: usuario });
 
-        this.router.navigateByUrl("/aparelhos");
+        this.router.navigateByUrl("/");
       }
       else {
         alert("Palavra-passe inválida.");
