@@ -1,43 +1,31 @@
 {
-  "usuarios": [
+  "users": [
     {
       "id": "1",
-      "nome": "Richard Luigi Mantoan Stopa",
-      "palavraPasse": "23012002"
+      "name": "Richard Luigi Mantoan Stopa",
+      "accessWord": "23012002"
     },
     {
       "id": "2",
-      "nome": "Andrew Isac Mantoan Stopa",
-      "palavraPasse": "02102003"
+      "name": "Andrew Isac Mantoan Stopa",
+      "accessWord": "02102003"
     },
     {
       "id": "3",
-      "nome": "Guilherme Gaspar",
-      "palavraPasse": "18122003"
+      "name": "Guilherme Gaspar",
+      "accessWord": "18122003"
     },
     {
       "id": "4",
-      "nome": "Antonio Vitor",
-      "palavraPasse": "12061999"
+      "name": "Antonio Vitor",
+      "accessWord": "12061999"
     },
     {
       "id": "5ae8",
-      "nome": "Gabriel Guedes",
-      "palavraPasse": "14032002"
+      "name": "Gabriel Guedes",
+      "accessWord": "14032002"
     }
   ],
-  "aparelhos": [
-    {
-      "id": "6588",
-      "tipo": "2",
-      "descricao": "Ventilador",
-      "comodo": "1"
-    },
-    {
-      "id": "9617",
-      "tipo": "1",
-      "descricao": "Lâmpada",
-      "comodo": "2"
-    }
+  "devices": [
   ]
 }

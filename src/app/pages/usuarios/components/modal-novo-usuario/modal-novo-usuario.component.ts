@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ModalNovoUsuarioControlService } from './modal-novo-usuario-control.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
-import { UserDataService } from '../../../../services/usuarios/user-data.service';
+import { UserDataService } from '../../../../services/users/user-data.service';
 
 @Component({
   selector: 'app-modal-novo-usuario',

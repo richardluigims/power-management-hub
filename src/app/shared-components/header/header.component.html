@@ -15,7 +15,7 @@
     </nav>
     
     <div class="functionalities-container">
-        <button class="btn_novo-aparelho" (click)="mostrarModalNovoAparelho()">
+        <button class="btn_novo-aparelho" (click)="showDeviceModal()">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1.88525 8H13.8853" stroke="#002B1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M7.88525 2V14" stroke="#002B1E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -35,7 +35,7 @@
                 </div>
                 
                 <div class="username">
-                    {{ loggedUser?.nome?.split(" ")[0] }}
+                    {{ loggedUser ? loggedUser.name.split(" ")[0] : "" }}
                 </div>
 
                 <div class="chevron-icon">

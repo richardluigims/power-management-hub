@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { UserDataService } from '../../services/usuarios/user-data.service';
 import { Subscription } from 'rxjs';
-import { ModalNovoAparelhoControlService } from '../../pages/aparelhos/components/modal-novo-aparelho/modal-novo-aparelho-control.service';
+import { DeviceModalService } from '../../pages/devices/components/modal-novo-aparelho/device-control-modal.service';
+import { LoggedUserDataControlService } from '../../services/users/logged-user-data-control.service';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-header',
@@ -13,19 +14,19 @@ import { ModalNovoAparelhoControlService } from '../../pages/aparelhos/component
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  loggedUser: any;
+  loggedUser: User | null = null;
   routerSubscription: Subscription | null = null;
   userDataSubscription: Subscription | null = null;;
   
   constructor(
     private router: Router,
-    private userDataService: UserDataService,
-    private modalNovoAparelho: ModalNovoAparelhoControlService
+    private userDataService: LoggedUserDataControlService,
+    private deviceModalControl: DeviceModalService
   ) {}
 
   ngOnInit(): void {
     this.userDataSubscription = this.userDataService.watchLoggedUserData().subscribe((data) => {
-      this.loggedUser = data.loggedUser;
+      this.loggedUser = data.loggedUser ? data.loggedUser : null;
     })
 
     this.routerSubscription = this.router.events.subscribe((event) => {
@@ -48,8 +49,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       this.routerSubscription?.unsubscribe();
   }
 
-  mostrarModalNovoAparelho() {
-    this.modalNovoAparelho.toggleModalNovoAparelho();
+  showDeviceModal() {
+    this.deviceModalControl.openDeviceModal();
   }
 
   logout() {

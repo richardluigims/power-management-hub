@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Router } from '@angular/router';
-import { UserDataService } from '../../services/usuarios/user-data.service';
+import { LoggedUserDataControlService } from '../../services/users/logged-user-data-control.service';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -23,12 +24,12 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private router: Router,
-    private userDataService: UserDataService
+    private userDataService: LoggedUserDataControlService
   ) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      palavraPasse: [null, Validators.required],
+      accessWord: [null, Validators.required],
     });
   }
 
@@ -41,13 +42,13 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    let palavraPasse = this.loginForm.get('palavraPasse').value;
+    let accessWord = this.loginForm.get('accessWord').value;
 
-    this.authService.login(palavraPasse).then((usuario) => {
-      if (usuario != null) {
-        localStorage.setItem('userId', usuario.id);
+    this.authService.login(accessWord).then((user: User) => {
+      if (user) {
+        localStorage.setItem('userId', user.id!);
 
-        this.userDataService.setLoggedUserData({ loggedUser: usuario });
+        this.userDataService.setLoggedUserData({ loggedUser: user });
 
         this.router.navigateByUrl("/");
       }

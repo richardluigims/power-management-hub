@@ -19,7 +19,7 @@ export const routes: Routes = [
             },
             {
                 path: 'aparelhos',
-                loadComponent: () => import("./pages/aparelhos/aparelhos.component").then(c => c.AparelhosComponent)
+                loadComponent: () => import("./pages/devices/devices.component").then(c => c.DevicesComponent)
             },
             {
                 path: 'usuarios',

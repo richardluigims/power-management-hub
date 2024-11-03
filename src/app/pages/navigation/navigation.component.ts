@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { HeaderComponent } from "../../shared-components/header/header.component";
-import { UserDataService } from '../../services/usuarios/user-data.service';
+import { UserDataService } from '../../services/users/user-data.service';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'app-navigation',
@@ -15,7 +15,7 @@ export class NavigationComponent implements OnInit {
   userId: string | null = null;
 
   constructor(
-    private usuariosService: UsuariosService,
+    private usersService: UsersService,
     private userDataService: UserDataService
   ) {}
 
@@ -27,7 +27,7 @@ export class NavigationComponent implements OnInit {
 
   getUser() {
     if (this.userId != null) {
-      this.usuariosService.getUsuario(this.userId).then((result) => {
+      this.usersService.getUser(this.userId).then((result) => {
         if (result != null) {
           this.userDataService.setLoggedUserData({ loggedUser: result });
         }

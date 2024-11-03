@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./shared-components/header/header.component";
-import { ModalNovoAparelhoComponent } from './pages/aparelhos/components/modal-novo-aparelho/modal-novo-aparelho.component';
-import { ModalNovoUsuarioComponent } from "./pages/usuarios/components/modal-novo-usuario/modal-novo-usuario.component";
+import { DeviceModalComponent } from "./pages/devices/components/modal-novo-aparelho/device-modal.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, ModalNovoAparelhoComponent, ModalNovoUsuarioComponent],
+  imports: [RouterOutlet, HeaderComponent, DeviceModalComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

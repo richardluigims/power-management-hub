@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserDataService } from '../../services/usuarios/user-data.service';
-import { UsuariosService } from '../../services/usuarios/usuarios.service';
 import { ModalNovoUsuarioControlService } from './components/modal-novo-usuario/modal-novo-usuario-control.service';
 import { Subscription } from 'rxjs';
+import { LoggedUserDataControlService } from '../../services/users/logged-user-data-control.service';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -20,8 +20,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   showSelectOptions: boolean = false;
 
   constructor(
-    private userDataService: UserDataService,
-    private usuariosService: UsuariosService,
+    private userDataService: LoggedUserDataControlService,
+    private usersService: UsersService,
     private modalControl: ModalNovoUsuarioControlService
   ) { }
 

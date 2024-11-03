@@ -1,7 +1,7 @@
 <dialog id="modal-novo-aparelho" class="modal-container" (close)="onClose()">
-    <form (ngSubmit)="criarAparelho()" [formGroup]="novoAparelhoForm" class="modal-content" autocomplete="off">
+    <form (ngSubmit)="editModeEnabled ? editDevice() : createDevice()" [formGroup]="deviceForm" class="modal-content" autocomplete="off">
         <div class="title">
-            Novo aparelho
+            {{ editModeEnabled ? "Editar aparelho" : "Novo aparelho"}}
         </div>
 
         <div class="radio-group-container" id="radio-group-tipo">
@@ -11,21 +11,21 @@
 
             <div class="radio-group">
                 <div>
-                    <input type="radio" value="1" id="lamp-radio" name="tipo" formControlName="tipo">
+                    <input type="radio" value="1" id="lamp-radio" name="type" formControlName="type">
                     <label for="lamp-radio">
                         Lâmpada Wifi
                     </label>
                 </div>
                 
                 <div>
-                    <input type="radio" value="2" id="fan-radio" name="tipo" formControlName="tipo">
+                    <input type="radio" value="2" id="fan-radio" name="type" formControlName="type">
                     <label for="fan-radio">
                         Ventilador
                     </label>
                 </div>
     
                 <div>
-                    <input type="radio" value="3" id="television-radio" name="tipo" formControlName="tipo">
+                    <input type="radio" value="3" id="television-radio" name="type" formControlName="type">
                     <label for="television-radio">
                         SmartTV
                     </label>
@@ -40,21 +40,21 @@
 
             <div class="radio-group">
                 <div>
-                    <input type="radio" value="1" id="living-room-radio" name="comodo" formControlName="comodo">
+                    <input type="radio" value="1" id="living-room-radio" name="room" formControlName="room">
                     <label for="living-room-radio">
                         Sala de estar
                     </label>
                 </div>
 
                 <div>
-                    <input type="radio" value="2" id="kitchen-radio" name="comodo" formControlName="comodo">
+                    <input type="radio" value="2" id="kitchen-radio" name="room" formControlName="room">
                     <label for="kitchen-radio">
                         Cozinha
                     </label>
                 </div>
 
                 <div>
-                    <input type="radio" value="3" id="office-radio" name="comodo" formControlName="comodo">
+                    <input type="radio" value="3" id="office-radio" name="room" formControlName="room">
                     <label for="office-radio">
                         Escritório
                     </label>
@@ -64,9 +64,9 @@
 
         <div class="input-container">
             <label>
-                Mais algum detalhe?
+                {{ editModeEnabled ? "Sobre" : "Mais algum detalhe?"}}
             </label>
-            <input type="text" placeholder="Insira uma descrição" formControlName="descricao">
+            <input type="text" placeholder="Insira uma descrição" formControlName="about">
         </div>
 
         <div class="options-container">
@@ -74,8 +74,8 @@
                 Retornar
             </button>
 
-            <button type="submit" class="form-button btn_primary" [disabled]="novoAparelhoForm.invalid">
-                Criar
+            <button type="submit" class="form-button btn_primary" [disabled]="deviceForm.invalid">
+                {{ editModeEnabled ? "Editar" : "Criar"}}
             </button>
         </div>
     </form>

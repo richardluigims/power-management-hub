@@ -1,0 +1,17 @@
+<section class="container">
+    @for(device of devices; track device.id) {
+        <app-card-aparelho (idEmitter)="onDeviceSelect($event)" [device]="device"></app-card-aparelho>
+    } @empty {
+        <div class="start-message-container">
+            Crie um aparelho para começar
+        </div>
+    }
+
+    <button class="btn_excluir-aparelhos" id="btn_excluir-aparelhos" (click)="deteleDevices()">
+        <div class="counting">
+            {{ selectedDeviceIds.length }}
+        </div>
+    
+        Excluir
+    </button>
+</section>
