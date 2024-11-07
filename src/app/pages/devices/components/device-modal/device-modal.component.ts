@@ -2,9 +2,10 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserDataService } from '../../../../services/users/user-data.service';
 import { DevicesService } from '../../../../services/devices/devices.service';
-import { DeviceModalService } from './device-control-modal.service';
+import { DeviceModalControlService } from './device-modal-control.service';
 import { Device } from '../../../../interfaces/device';
 import { DeviceModalData } from '../../../../interfaces/device-modal-data';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-device-modal',
@@ -15,21 +16,21 @@ import { DeviceModalData } from '../../../../interfaces/device-modal-data';
 })
 export class DeviceModalComponent implements OnInit, AfterViewInit {
   modalElement: HTMLDialogElement | null = null;
-  controlSubscription: any;
+  modalControlSubscription: Subscription | null = null;
   deviceForm: any;
   isActive: boolean = false;
   device: Device | undefined;
   editModeEnabled: boolean = false;
 
   constructor(
-    private deviceModalService: DeviceModalService,
+    private deviceModalService: DeviceModalControlService,
     private formBuilder: FormBuilder,
     private userDataService: UserDataService,
     private devicesService: DevicesService
   ) { }
 
   ngOnInit(): void {
-    this.controlSubscription = this.deviceModalService.getDeviceModalControl().subscribe((deviceModalData: DeviceModalData) => {
+    this.modalControlSubscription = this.deviceModalService.getDeviceModalControl().subscribe((deviceModalData: DeviceModalData) => {
       this.isActive = deviceModalData.isActive;
       this.device = deviceModalData.device;
 
@@ -75,13 +76,13 @@ export class DeviceModalComponent implements OnInit, AfterViewInit {
     }
 
     this.devicesService.createDevice(newDevice).then((response) => {
-      let aparelhosRegistrados = [
-        ...this.userDataService.getLoggedUserData().aparelhos,
+      let newDevices = [
+        ...this.userDataService.getLoggedUserData().devices,
         response
       ];
 
       this.userDataService.setLoggedUserData({
-        aparelhos: aparelhosRegistrados
+        devices: newDevices
       });
 
       this.closeModal();
@@ -105,7 +106,7 @@ export class DeviceModalComponent implements OnInit, AfterViewInit {
       registeredDevices[editedDeviceIndex] = response;
 
       this.userDataService.setLoggedUserData({
-        aparelhos: registeredDevices
+        devices: registeredDevices
       });
 
       this.closeModal();

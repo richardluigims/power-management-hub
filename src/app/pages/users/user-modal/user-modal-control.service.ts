@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserModalData } from '../../../../interfaces/user-modal-data';
+import { UserModalData } from '../../../interfaces/user-modal-data';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ModalNovoUsuarioControlService {
+export class UserModalControlService {
   private userModalSubject = new BehaviorSubject<UserModalData>({isActive: false});
 
   constructor() { }

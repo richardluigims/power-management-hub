@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ModalNovoUsuarioControlService } from './modal-novo-usuario-control.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
-import { UserDataService } from '../../../../services/users/user-data.service';
+import { UsersService } from '../../../../services/users/users.service';
+import { UserModalControlService } from '../../../users/user-modal/user-modal-control.service';
+import { LoggedUserDataControlService } from '../../../../services/users/logged-user-data-control.service';
+import { Subscription } from 'rxjs';
+import { UserModalData } from '../../../../interfaces/user-modal-data';
+import { User } from '../../../../interfaces/user';
 
 @Component({
   selector: 'app-modal-novo-usuario',
@@ -12,45 +15,64 @@ import { UserDataService } from '../../../../services/users/user-data.service';
   styleUrl: './modal-novo-usuario.component.scss'
 })
 export class ModalNovoUsuarioComponent implements OnInit, AfterViewInit {
-  modal: any;
-  novoUsuarioForm: any;
-  controlSubscription: any;
+  modalElement: HTMLDialogElement | null = null;
+  userForm: any;
+  modalControlSubscription: Subscription | null = null;
+  isActive: boolean = false;
+  userToEdit: User | null = null;
+  editModeEnabled: boolean = false;
 
   constructor(
-    private modalControlService: ModalNovoUsuarioControlService,
+    private userModalControl: UserModalControlService,
     private formBuilder: FormBuilder,
-    private usuarioService: UsuariosService,
-    private userDataService: UserDataService
+    private usersService: UsersService,
+    private userDataService: LoggedUserDataControlService
   ) {}
 
   ngOnInit(): void {
-    this.novoUsuarioForm = this.formBuilder.group({
-      nome: [null, Validators.required],
-      palavraPasse: [null, Validators.required]
+    this.modalControlSubscription = this.userModalControl.getUserModalControl().subscribe((userModalData: UserModalData) => {
+      this.isActive = userModalData.isActive;
+      this.userToEdit = userModalData.user || null;
+
+      this.isActive ?
+        this.modalElement?.showModal() :
+        this.modalElement?.close();
+
+      if (this.userToEdit) {
+        this.enableEditMode();
+      }
+    })
+
+    this.userForm = this.formBuilder.group({
+      name: [null, Validators.required],
+      accessWord: [null, Validators.required]
     })
   }
 
   ngAfterViewInit(): void {
-    this.modal = document.querySelector("#modal-novo-usuario");
+    this.modalElement = document.querySelector("#modal-novo-usuario");
+  }
 
-    this.controlSubscription = this.modalControlService.getModalNovoUsuarioControl().subscribe((modalState) => {
-      modalState ?
-        this.modal.showModal() :
-        this.modal.close()
+  enableEditMode(): void {
+    this.editModeEnabled = true;
+
+    this.userForm.setValue({
+      name: this.userToEdit?.name,
+      accessWord: this.userToEdit?.accessWord
     })
   }
 
-  criarUsuario() {
-    if (this.novoUsuarioForm.invalid) {
+  createUser() {
+    if (this.userForm.invalid) {
       return;
     }
 
-    let novoUsuario = {
-      nome: this.novoUsuarioForm.get('nome').value,
-      palavraPasse: this.novoUsuarioForm.get('palavraPasse').value      
+    let newUser = {
+      name: this.userForm.get('name').value,
+      accessWord: this.userForm.get('accessWord').value      
     }
 
-    this.usuarioService.createUsuario(novoUsuario).then((response) => {
+    this.usersService.createUser(newUser).then((response) => {
       let usuariosRegistrados = [
         ...this.userDataService.getLoggedUserData().usuarios,
         response

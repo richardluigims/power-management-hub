@@ -36,4 +36,8 @@ export class LoggedUserDataControlService {
     this.loggedUserData.users = null;
     this.loggedUserData.devices = null;
   }
+
+  getLoggedUserData(): LoggedUserData {
+    return this.userDataSubject.value;
+  }
 }

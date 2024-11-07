@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalNovoUsuarioControlService } from './components/modal-novo-usuario/modal-novo-usuario-control.service';
+import { User } from '../../interfaces/user';
 import { Subscription } from 'rxjs';
 import { LoggedUserDataControlService } from '../../services/users/logged-user-data-control.service';
 import { UsersService } from '../../services/users/users.service';
-import { User } from '../../interfaces/user';
+import { ModalNovoUsuarioControlService } from '../usuarios/components/modal-novo-usuario/modal-novo-usuario-control.service';
 
 @Component({
-  selector: 'app-usuarios',
+  selector: 'app-users',
   standalone: true,
   imports: [],
-  templateUrl: './usuarios.component.html',
-  styleUrl: './usuarios.component.scss'
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.scss'
 })
-export class UsuariosComponent implements OnInit, OnDestroy {
+export class UsersComponent implements OnInit, OnDestroy {
   loggedUserData: any;
   users = new Array<User>();
   loggedUser: User | null = null;

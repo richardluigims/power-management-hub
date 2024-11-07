@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./shared-components/header/header.component";
-import { DeviceModalComponent } from "./pages/devices/components/modal-novo-aparelho/device-modal.component";
+import { DeviceModalComponent } from "./pages/devices/components/device-modal/device-modal.component";
 
 @Component({
   selector: 'app-root',

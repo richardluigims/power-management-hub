@@ -29,7 +29,7 @@ export class UsersService {
     return firstValueFrom(this.httpClient.get<User[]>(this.API_URL));
   }
 
-  createuser(newUser: User): Promise<User> {
+  createUser(newUser: User): Promise<User> {
     return firstValueFrom(this.httpClient.post<User>(this.API_URL, newUser));
   }
 

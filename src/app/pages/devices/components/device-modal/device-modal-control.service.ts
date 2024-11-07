@@ -5,7 +5,7 @@ import { DeviceModalData } from '../../../../interfaces/device-modal-data';
 @Injectable({
   providedIn: 'root'
 })
-export class DeviceModalService {
+export class DeviceModalControlService {
   private deviceModalSubject = new BehaviorSubject<DeviceModalData>({isActive: false});
 
   constructor() { }

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DeviceModalService } from '../../pages/devices/components/modal-novo-aparelho/device-control-modal.service';
+import { DeviceModalControlService } from '../../pages/devices/components/device-modal/device-modal-control.service';
 import { LoggedUserDataControlService } from '../../services/users/logged-user-data-control.service';
 import { User } from '../../interfaces/user';
 
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private router: Router,
     private userDataService: LoggedUserDataControlService,
-    private deviceModalControl: DeviceModalService
+    private deviceModalControl: DeviceModalControlService
   ) {}
 
   ngOnInit(): void {
