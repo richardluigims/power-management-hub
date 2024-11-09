@@ -1,6 +1,6 @@
 <section class="container">
     @for(device of devices; track device.id) {
-        <app-card-aparelho (idEmitter)="onDeviceSelect($event)" [device]="device"></app-card-aparelho>
+        <app-device-card (idEmitter)="onDeviceSelect($event)" [device]="device"></app-device-card>
     } @empty {
         <div class="start-message-container">
             Crie um aparelho para começar

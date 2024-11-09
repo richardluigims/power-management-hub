@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../../shared-components/header/header.component";
-import { UserDataService } from '../../services/users/user-data.service';
 import { UsersService } from '../../services/users/users.service';
+import { LoggedUserDataControlService } from '../../services/users/logged-user-data-control.service';
 
 @Component({
   selector: 'app-navigation',
@@ -16,7 +16,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private userDataService: UserDataService
+    private userDataService: LoggedUserDataControlService
   ) {}
 
   ngOnInit(): void {

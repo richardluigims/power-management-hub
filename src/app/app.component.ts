@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./shared-components/header/header.component";
 import { DeviceModalComponent } from "./pages/devices/components/device-modal/device-modal.component";
+import { UserModalComponent } from "./pages/users/user-modal/user-modal.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, DeviceModalComponent],
+  imports: [RouterOutlet, DeviceModalComponent, UserModalComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

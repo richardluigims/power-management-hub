@@ -3,7 +3,7 @@ import { User } from '../../interfaces/user';
 import { Subscription } from 'rxjs';
 import { LoggedUserDataControlService } from '../../services/users/logged-user-data-control.service';
 import { UsersService } from '../../services/users/users.service';
-import { ModalNovoUsuarioControlService } from '../usuarios/components/modal-novo-usuario/modal-novo-usuario-control.service';
+import { UserModalControlService } from './user-modal/user-modal-control.service';
 
 @Component({
   selector: 'app-users',
@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private userDataService: LoggedUserDataControlService,
     private usersService: UsersService,
-    private modalControl: ModalNovoUsuarioControlService
+    private modalControl: UserModalControlService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   showUserModal() {
-    // this.modalControl.toggleUserModal();
+    this.modalControl.openUserModal();
   }
 
   toggleSelectOptions() {

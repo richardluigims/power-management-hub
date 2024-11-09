@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserDataService } from '../../../../services/users/user-data.service';
 import { DevicesService } from '../../../../services/devices/devices.service';
 import { DeviceModalControlService } from './device-modal-control.service';
 import { Device } from '../../../../interfaces/device';
 import { DeviceModalData } from '../../../../interfaces/device-modal-data';
 import { Subscription } from 'rxjs';
+import { LoggedUserDataControlService } from '../../../../services/users/logged-user-data-control.service';
 
 @Component({
   selector: 'app-device-modal',
@@ -25,7 +25,7 @@ export class DeviceModalComponent implements OnInit, AfterViewInit {
   constructor(
     private deviceModalService: DeviceModalControlService,
     private formBuilder: FormBuilder,
-    private userDataService: UserDataService,
+    private userDataService: LoggedUserDataControlService,
     private devicesService: DevicesService
   ) { }
 
@@ -77,7 +77,7 @@ export class DeviceModalComponent implements OnInit, AfterViewInit {
 
     this.devicesService.createDevice(newDevice).then((response) => {
       let newDevices = [
-        ...this.userDataService.getLoggedUserData().devices,
+        ...(this.userDataService.getLoggedUserData().devices) ?? [],
         response
       ];
 
@@ -95,15 +95,16 @@ export class DeviceModalComponent implements OnInit, AfterViewInit {
     }
 
     let device = {
+      id: this.device?.id,
       type: this.deviceForm.get('type').value,
       about: this.deviceForm.get('about').value,
       room: this.deviceForm.get('room').value,
     }
 
     this.devicesService.editDevice(device).then((response) => {
-      let registeredDevices = this.userDataService.getLoggedUserData().aparelhos;
-      let editedDeviceIndex = registeredDevices.findIndex((device: Device) => device.id == response.id);
-      registeredDevices[editedDeviceIndex] = response;
+      let registeredDevices = this.userDataService.getLoggedUserData().devices;
+      let editedDeviceIndex = registeredDevices!.findIndex((device: Device) => device.id == response.id);
+      registeredDevices![editedDeviceIndex] = response;
 
       this.userDataService.setLoggedUserData({
         devices: registeredDevices

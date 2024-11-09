@@ -23,7 +23,7 @@ export const routes: Routes = [
             },
             {
                 path: 'usuarios',
-                loadComponent: () => import("./pages/usuarios/usuarios.component").then(c => c.UsuariosComponent)
+                loadComponent: () => import("./pages/users/users.component").then(c => c.UsersComponent)
             }
         ]
     }

@@ -1,1 +1,31 @@
-<p>user-modal works!</p>
+<dialog id="modal-novo-usuario" class="modal-container" (close)="onModalClose()">
+    <form (ngSubmit)="createUser()" [formGroup]="userForm" class="modal-content" autocomplete="off">
+        <div class="title">
+            Novo usuário
+        </div>
+
+        <div class="input-container">
+            <label>
+                Nome
+            </label>
+            <input type="text" formControlName="name">
+        </div>
+
+        <div class="input-container">
+            <label>
+                Palavra-passe
+            </label>
+            <input type="text" formControlName="accessWord">
+        </div>
+
+        <div class="options-container">
+            <button class="form-button btn_tertiary" type="button" (click)="closeModal()">
+                Retornar
+            </button>
+
+            <button type="submit" class="form-button btn_primary" [disabled]="userForm.invalid">
+                Criar
+            </button>
+        </div>
+    </form>
+</dialog>

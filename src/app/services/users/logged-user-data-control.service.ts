@@ -16,12 +16,12 @@ export class LoggedUserDataControlService {
 
   constructor() { }
 
-  setLoggedUserData(userData: LoggedUserData): void {
+  setLoggedUserData(newUserData: LoggedUserData): void {
     this.loggedUserData =
     {
-      loggedUser: (userData.loggedUser != undefined) ? userData.loggedUser : this.loggedUserData.loggedUser,
-      users: (userData.users != undefined) ? userData.users : this.loggedUserData.users,
-      devices: (userData.devices != undefined) ? userData.devices : this.loggedUserData.devices
+      loggedUser: (newUserData.loggedUser != undefined) ? newUserData.loggedUser : this.loggedUserData.loggedUser,
+      users: (newUserData.users != undefined) ? newUserData.users : this.loggedUserData.users,
+      devices: (newUserData.devices != undefined) ? newUserData.devices : this.loggedUserData.devices
     };
 
     this.userDataSubject.next(this.loggedUserData);

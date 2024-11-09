@@ -24,8 +24,12 @@
       "id": "5ae8",
       "name": "Gabriel Guedes",
       "accessWord": "14032002"
+    },
+    {
+      "id": "73b8",
+      "name": "Ícaro",
+      "accessWord": "Teste@123"
     }
   ],
-  "devices": [
-  ]
+  "devices": []
 }
