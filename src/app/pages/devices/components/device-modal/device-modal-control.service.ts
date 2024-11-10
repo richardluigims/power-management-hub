@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DeviceModalData } from '../../../../interfaces/device-modal-data';
+import { Device } from '../../../../interfaces/device';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,18 @@ export class DeviceModalControlService {
 
   constructor() { }
 
-  openDeviceModal(deviceModalData?: DeviceModalData) {
-    deviceModalData?.device ?
-      this.deviceModalSubject.next(deviceModalData) :
+  openDeviceModal(device?: Device) {
+    if (device) {
+      let deviceModalData = {
+        isActive: true,
+        device: device
+      }
+
+      this.deviceModalSubject.next(deviceModalData)
+    }
+    else {
       this.deviceModalSubject.next({isActive: true});
+    }
   }
 
   closeDeviceModal() {

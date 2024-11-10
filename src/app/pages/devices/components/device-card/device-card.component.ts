@@ -5,6 +5,7 @@ import { DeviceTypeEnum } from '../../../../enums/device-type-enum';
 import { RoomEnum } from '../../../../enums/room-enum';
 import { Device } from '../../../../interfaces/device';
 import { DeviceControl } from '../../../../interfaces/device-control';
+import { DeviceModalControlService } from '../device-modal/device-modal-control.service';
 
 @Component({
   selector: 'app-device-card',
@@ -25,9 +26,11 @@ export class DeviceCardComponent implements OnInit, AfterViewInit, OnDestroy {
   deviceTypeEnum = DeviceTypeEnum;
   roomEnum = RoomEnum;
   activeTimeSubscription: Subscription | null = null;
+  // deviceModalSubscription: Subscription | null = null;
 
   constructor(
-    private deviceControlService: DeviceControlService
+    private deviceControlService: DeviceControlService,
+    private deviceModalControl: DeviceModalControlService
   ) { }
 
   ngOnInit(): void {
@@ -102,6 +105,10 @@ export class DeviceCardComponent implements OnInit, AfterViewInit, OnDestroy {
     let formatedSeconds = this.seconds >= 10 ? this.seconds : "0" + this.seconds;
 
     this.activeTime = formatedMinutes + ":" + formatedSeconds;
+  }
+
+  showEditModal() {
+    this.deviceModalControl.openDeviceModal(this.device as Device);
   }
 
   emitIdToParent(event: any) {

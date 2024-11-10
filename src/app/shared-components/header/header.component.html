@@ -35,7 +35,7 @@
                 </div>
                 
                 <div class="username">
-                    {{ loggedUser ? loggedUser.name.split(" ")[0] : "" }}
+                    {{ loggedUser ? loggedUser.name.split(" ").slice(0, 2).join(" ") : "" }}
                 </div>
 
                 <div class="chevron-icon">

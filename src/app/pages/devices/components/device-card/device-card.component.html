@@ -26,8 +26,17 @@
             }
         }
 
-        <div class="checkbox-and-btn">
-            <input type="checkbox" [value]="device?.id" class="checkbox-input" (change)="emitIdToParent($event)">
+        <div class="card-functionalities">
+            <div class="show-on-hover-functionalities">
+                <button class="edit-button" (click)="showEditModal()">
+                    <svg class="edit-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.002 0.642018C14.1459 -0.214005 12.758 -0.214007 11.902 0.642018L1.55759 10.9865C1.25159 11.2925 1.04301 11.6822 0.95814 12.1065L0.52919 14.2513C0.324687 15.2738 1.22621 16.1753 2.24872 15.9708L4.39346 15.5418C4.81781 15.457 5.20755 15.2484 5.51355 14.9424L15.8579 4.59798C16.714 3.74195 16.714 2.35407 15.8579 1.49804L15.002 0.642018ZM12.9353 1.67533C13.2207 1.38999 13.6833 1.38999 13.9687 1.67533L14.8246 2.53136C15.11 2.81669 15.11 3.27932 14.8246 3.56467L12.8726 5.5167L10.9833 3.62736L12.9353 1.67533ZM9.94994 4.66067L2.5909 12.0198C2.4889 12.1218 2.41938 12.2517 2.39109 12.3931L1.96214 14.5378L4.10688 14.1089C4.24833 14.0806 4.37824 14.0111 4.48024 13.9091L11.8393 6.55001L9.94994 4.66067Z" fill="#002B1E"/>
+                    </svg>
+                </button>
+                    
+                <input type="checkbox" [value]="device?.id" class="checkbox-input" (change)="emitIdToParent($event)">
+            </div>
+            
             <button class="btn_on-off" (click)="isPowerOn ? powerOff() : powerOn()"></button>
         </div>
     </div>
