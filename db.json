@@ -31,12 +31,5 @@
       "accessWord": "Teste@123"
     }
   ],
-  "devices": [
-    {
-      "id": "0e09",
-      "type": "2",
-      "about": "Ventilador",
-      "room": "2"
-    }
-  ]
+  "devices": []
 }

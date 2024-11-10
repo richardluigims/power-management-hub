@@ -60,8 +60,12 @@ export class UsersComponent implements OnInit, OnDestroy {
     })
   }
 
-  showUserModal() {
+  showCreateModal() {
     this.modalControl.openUserModal();
+  }
+
+  showEditModal(user: User) {
+    this.modalControl.openUserModal(user);
   }
 
   toggleSelectOptions() {

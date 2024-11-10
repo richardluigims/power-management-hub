@@ -64,6 +64,33 @@
             gap: 18px;
             flex-grow: 1;
         }
+
+        .edit-button {
+            border: none;
+            background-color: transparent;
+            opacity: 0;
+            padding: 0px;
+            transform: translate(-15px, 0px);
+            transition: transform 0.2s, opacity 0.2s;
+            pointer-events: none;
+            cursor: pointer;
+
+            svg.edit-icon {
+                width: 14px;
+            
+                path {
+                    fill: var(--midnight);
+                }
+            }
+        }
+    }
+
+    .usuario-card:hover {
+        .edit-button {
+            opacity: 1;
+            transform: translate(-8px, 0px);
+            pointer-events: auto;
+        }
     }
 }
 
