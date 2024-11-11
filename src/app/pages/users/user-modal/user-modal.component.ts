@@ -67,9 +67,18 @@ export class UserModalComponent {
       return;
     }
 
+    let newUserAccessWord = this.userForm.get('accessWord').value;
+    let registeredUsers = this.userDataService.getLoggedUserData().users;
+    let userAlreadyRegistered = registeredUsers?.findIndex(user => user.accessWord == newUserAccessWord);
+
+    if (userAlreadyRegistered != -1) {
+      alert("Já existe um usuário com essa palavra-passe.");
+      return;
+    }
+
     let newUser = {
       name: this.userForm.get('name').value,
-      accessWord: this.userForm.get('accessWord').value      
+      accessWord: newUserAccessWord
     }
 
     this.usersService.createUser(newUser).then((response) => {
@@ -91,19 +100,22 @@ export class UserModalComponent {
       return;
     }
 
-    let user = {
+    let editedUser = {
       id: this.userToEdit?.id,
       name: this.userForm.get('name').value,
       accessWord: this.userForm.get('accessWord').value
     }
 
-    this.usersService.editUser(user).then((response) => {
+    this.usersService.editUser(editedUser).then((response) => {
       let registeredUsers = this.userDataService.getLoggedUserData().users;
-      let updatedUsers = registeredUsers?.map(user => user.id === user.id ? response : user);
+      let editedUserIndex = registeredUsers!.findIndex((user: User) => user.id === editedUser.id)
+      registeredUsers![editedUserIndex] = response;
 
       this.userDataService.setLoggedUserData({
-        users: updatedUsers
+        users: registeredUsers
       });
+
+      this.closeModal();
     })
   }
 
@@ -113,5 +125,7 @@ export class UserModalComponent {
 
   closeModal() {
     this.userModalControl.closeUserModal();
+
+    this.editModeEnabled = false;
   }
 }

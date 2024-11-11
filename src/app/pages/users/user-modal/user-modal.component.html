@@ -1,7 +1,7 @@
 <dialog id="modal-novo-usuario" class="modal-container" (close)="onModalClose()">
-    <form (ngSubmit)="createUser()" [formGroup]="userForm" class="modal-content" autocomplete="off">
+    <form (ngSubmit)="editModeEnabled ? editUser() : createUser()" [formGroup]="userForm" class="modal-content" autocomplete="off">
         <div class="title">
-            Novo usuário
+            {{ editModeEnabled ? "Editar usuário" : "Novo usuário"}}
         </div>
 
         <div class="input-container">
@@ -24,7 +24,7 @@
             </button>
 
             <button type="submit" class="form-button btn_primary" [disabled]="userForm.invalid">
-                Criar
+                {{ editModeEnabled ? "Editar" : "Criar" }}
             </button>
         </div>
     </form>

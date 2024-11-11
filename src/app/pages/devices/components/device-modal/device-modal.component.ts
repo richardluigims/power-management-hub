@@ -116,6 +116,8 @@ export class DeviceModalComponent implements OnInit, AfterViewInit {
 
   onClose() {
     this.deviceForm.reset();
+
+    this.editModeEnabled = false;
   }
 
   closeModal() {
